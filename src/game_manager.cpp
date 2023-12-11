@@ -3,19 +3,22 @@
 using namespace MyUno;
 
 GameManager::GameManager()
-	:IsRunning(false)
+	:isRunning(false),
+	windowManager(WindowSystem(*this))
 {
 }
 
 void GameManager::Quit() 
 {
-	IsRunning = false;
+	isRunning = false;
 }
 
 void GameManager::GameLoop()
 {
-	IsRunning = true;
-	while (IsRunning) {
+	isRunning = true;
+	windowManager.SwitchWindow(HelloWorld);
+	while (isRunning) {
+		windowManager.GetCurrentWindow()->Draw();
 		std::cout << "Begin game loop" << std::endl;
 	}
 }

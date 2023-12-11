@@ -9,8 +9,8 @@ namespace MyUno
 	class GameManager
 	{
 	private:
-		WindowSystem WindowManager;
-		bool IsRunning;
+		WindowSystem windowManager;
+		bool isRunning;
 	public:
 		GameManager();
 		/// <summary>
