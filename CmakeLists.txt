@@ -5,7 +5,9 @@ set(include_dirs ${include_dirs}
     "${CMAKE_SOURCE_DIR}/include")
 set(sources ${sources}
     "${CMAKE_SOURCE_DIR}/src/main.cpp"
-    "${CMAKE_SOURCE_DIR}/include/main.h")
-
+    "${CMAKE_SOURCE_DIR}/include/main.h"
+    "${CMAKE_SOURCE_DIR}/src/game_manager.cpp"
+    "${CMAKE_SOURCE_DIR}/include/game_manager.h"
+)
 add_executable(cpp_uno ${sources} ${})
 include_directories(cpp_uno ${include_dirs})
