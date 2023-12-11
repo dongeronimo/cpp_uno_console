@@ -9,7 +9,7 @@ namespace MyUno
 		Plus2Card(Color color);
 		bool CanBePlayed();
 		void ExecuteAction();
-
+		virtual ~Plus2Card() {}
 	};
 
 }

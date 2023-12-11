@@ -9,7 +9,7 @@ namespace MyUno
 		ReverseCard(Color color);
 		bool CanBePlayed();
 		void ExecuteAction();
-
+		virtual ~ReverseCard() {}
 	};
 
 }

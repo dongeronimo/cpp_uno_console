@@ -11,6 +11,7 @@ namespace MyUno
 	public:
 		Window(WindowSystem& manager);
 		virtual void Draw() = 0;
+		virtual ~Window() {}
 	};
 }
 

@@ -3,13 +3,14 @@
 #include "window.h"
 namespace MyUno
 {
-	class WindowManager;
+	class WindowSystem;
 	class WindowHelloWorld : public Window
 	{
 	private:
 	public:
 		WindowHelloWorld(WindowSystem& manager);
 		void Draw();
+		virtual ~WindowHelloWorld() {}
 	};
 }
 

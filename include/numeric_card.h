@@ -9,7 +9,7 @@ namespace MyUno
 		NumericCard(Color color, int number);
 		bool CanBePlayed();
 		void ExecuteAction();
-
+		virtual ~NumericCard() {}
 	};
 
 }

@@ -8,6 +8,7 @@ namespace MyUno
 		JumpCard(Color color);
 		bool CanBePlayed();
 		void ExecuteAction();
+		virtual ~JumpCard(){}
 	};
 }
 #endif

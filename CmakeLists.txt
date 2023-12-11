@@ -4,6 +4,7 @@ set (CMAKE_CXX_STANDARD 14)
 set(include_dirs ${include_dirs}
     "${CMAKE_SOURCE_DIR}/include")
 set(sources ${sources}
+    "${CMAKE_SOURCE_DIR}/include/color.hpp"
     "${CMAKE_SOURCE_DIR}/src/deck_generator.cpp"
     "${CMAKE_SOURCE_DIR}/include/deck_generator.h"
     "${CMAKE_SOURCE_DIR}/src/card_container.cpp"

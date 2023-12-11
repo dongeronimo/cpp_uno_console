@@ -20,6 +20,7 @@ namespace MyUno
 		bool operator!=(const Card& other) const {
 			return !(*this == other);
 		}
+		virtual ~Card() {}
 	};
 }
 #endif
