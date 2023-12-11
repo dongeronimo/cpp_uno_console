@@ -1,0 +1,9 @@
+cmake_minimum_required(VERSION 3.0)
+project(cpp_uno)
+
+set(headers ${headers}
+    include/main.h)
+set(sources ${sources}
+    src/main.cpp)
+
+add_executable(cpp_uno ${sources})
