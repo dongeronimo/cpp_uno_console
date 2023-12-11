@@ -4,6 +4,16 @@ project(cpp_uno)
 set(include_dirs ${include_dirs}
     "${CMAKE_SOURCE_DIR}/include")
 set(sources ${sources}
+    "${CMAKE_SOURCE_DIR}/src/jump_card.cpp"
+    "${CMAKE_SOURCE_DIR}/include/jump_card.h"
+    "${CMAKE_SOURCE_DIR}/src/numeric_card.cpp"
+    "${CMAKE_SOURCE_DIR}/include/numeric_card.h"
+    "${CMAKE_SOURCE_DIR}/src/plus_2_card.cpp"
+    "${CMAKE_SOURCE_DIR}/include/plus_2_card.h"
+    "${CMAKE_SOURCE_DIR}/src/reverse_card.cpp"
+    "${CMAKE_SOURCE_DIR}/include/reverse_card.h"
+    "${CMAKE_SOURCE_DIR}/src/card.cpp"
+    "${CMAKE_SOURCE_DIR}/include/card.h"
     "${CMAKE_SOURCE_DIR}/src/main.cpp"
     "${CMAKE_SOURCE_DIR}/include/main.h")
 
