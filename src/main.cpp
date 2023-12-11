@@ -1,8 +1,10 @@
 #include <iostream>
-#include "main.h"
+#include "game_manager.h"
 using namespace std;
+using namespace MyUno;
 
 int main(){
-    cout<<"hello world"<<endl;
+    GameManager manager;
+    manager.GameLoop();
     return 0;    
 }
