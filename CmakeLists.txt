@@ -4,6 +4,8 @@ project(cpp_uno)
 set(include_dirs ${include_dirs}
     "${CMAKE_SOURCE_DIR}/include")
 set(sources ${sources}
+    "${CMAKE_SOURCE_DIR}/src/card_container.cpp"
+    "${CMAKE_SOURCE_DIR}/include/card_container.h"
     "${CMAKE_SOURCE_DIR}/src/jump_card.cpp"
     "${CMAKE_SOURCE_DIR}/include/jump_card.h"
     "${CMAKE_SOURCE_DIR}/src/numeric_card.cpp"

@@ -14,6 +14,12 @@ namespace MyUno
 		Card(Color color, Type type);
 		virtual bool CanBePlayed() = 0;
 		virtual void ExecuteAction() = 0;
+		bool operator==(const Card& other) const {
+			return id == other.id;
+		}
+		bool operator!=(const Card& other) const {
+			return !(*this == other);
+		}
 	};
 }
 #endif
