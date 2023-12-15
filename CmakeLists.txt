@@ -6,6 +6,8 @@ set(include_dirs ${include_dirs}
 set(sources ${sources}
     "${CMAKE_SOURCE_DIR}/include/color.hpp"
     "${CMAKE_SOURCE_DIR}/src/deck_generator.cpp"
+    "${CMAKE_SOURCE_DIR}/include/color.hpp"
+    "${CMAKE_SOURCE_DIR}/src/deck_generator.cpp"
     "${CMAKE_SOURCE_DIR}/include/deck_generator.h"
     "${CMAKE_SOURCE_DIR}/src/card_container.cpp"
     "${CMAKE_SOURCE_DIR}/include/card_container.h"
@@ -29,6 +31,8 @@ set(sources ${sources}
     "${CMAKE_SOURCE_DIR}/include/window.h"
     "${CMAKE_SOURCE_DIR}/src/window_hello_world.cpp"
     "${CMAKE_SOURCE_DIR}/include/window_hello_world.h"
+    "${CMAKE_SOURCE_DIR}/src/player.cpp"
+    "${CMAKE_SOURCE_DIR}/include/player.h"
 )
 add_executable(cpp_uno ${sources} ${})
 include_directories(cpp_uno ${include_dirs})
