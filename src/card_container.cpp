@@ -15,6 +15,13 @@ void MyUno::CardContainer::Add(shared_ptr<Card> card)
     cards.push_back(card);
 }
 
+shared_ptr<Card> MyUno::CardContainer::BuyTopCard()
+{
+    auto topCard = Top();
+    Remove(topCard);
+    return topCard;
+}
+
 void MyUno::CardContainer::Remove(shared_ptr<Card> which)
 {
     cards.erase(std::remove_if(

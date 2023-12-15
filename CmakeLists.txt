@@ -4,6 +4,7 @@ set (CMAKE_CXX_STANDARD 14)
 set(include_dirs ${include_dirs}
     "${CMAKE_SOURCE_DIR}/include")
 set(sources ${sources}
+    "${CMAKE_SOURCE_DIR}/include/string_utils.h"
     "${CMAKE_SOURCE_DIR}/include/color.hpp"
     "${CMAKE_SOURCE_DIR}/src/deck_generator.cpp"
     "${CMAKE_SOURCE_DIR}/include/color.hpp"
@@ -33,6 +34,10 @@ set(sources ${sources}
     "${CMAKE_SOURCE_DIR}/include/window_hello_world.h"
     "${CMAKE_SOURCE_DIR}/src/player.cpp"
     "${CMAKE_SOURCE_DIR}/include/player.h"
+    "${CMAKE_SOURCE_DIR}/src/create_players_window.cpp"
+    "${CMAKE_SOURCE_DIR}/include/create_players_window.h"
+    "${CMAKE_SOURCE_DIR}/src/match_window.cpp"
+    "${CMAKE_SOURCE_DIR}/include/match_window.h"
 )
 add_executable(cpp_uno ${sources} ${})
 include_directories(cpp_uno ${include_dirs})

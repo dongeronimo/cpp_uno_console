@@ -1,15 +1,26 @@
 #ifndef __game_manager_h
 #define __game_manager_h
+#include <string>
+#include <memory>
+#include <vector>
 #include "window_system.h"
+#include "deck_generator.h"
+using namespace std;
 namespace MyUno
 {
+	class Player;
 	/// <summary>
 	/// Orchestrates the game.
 	/// </summary>
 	class GameManager
 	{
 	private:
+		DeckGenerator deckGenerator;
 		WindowSystem windowManager;
+		CardContainer deck;
+		vector<shared_ptr<Player>> players;
+		void BuildPlayerHand(shared_ptr<Player> player);
+		void RandomizePlayerOrder();
 		bool isRunning;
 	public:
 		GameManager();
@@ -23,6 +34,12 @@ namespace MyUno
 		/// GameManager.Quit is invoked
 		/// </summary>
 		void GameLoop();
+		/// <summary>
+		/// Shuffles the initial deck, create the players, give them their cards from
+		/// the deck and go to the match window.
+		/// </summary>
+		/// <param name="playerNames"></param>
+		void BeginMatch(const vector<string>& playerNames);
 	};
 }
 

@@ -1,6 +1,9 @@
 #include "game_manager.h"
 #include <iostream>
+#include <random>
+#include "player.h"
 using namespace MyUno;
+
 
 GameManager::GameManager()
 	:isRunning(false),
@@ -16,9 +19,38 @@ void GameManager::Quit()
 void GameManager::GameLoop()
 {
 	isRunning = true;
-	windowManager.SwitchWindow(HelloWorld);
+	windowManager.SwitchWindow(PlayerSetup);
 	while (isRunning) {
 		windowManager.GetCurrentWindow()->Draw();
-		std::cout << "Begin game loop" << std::endl;
 	}
+}
+void MyUno::GameManager::BuildPlayerHand(shared_ptr<Player> player)
+{
+	for (auto i = 0; i < 7; i++)
+	{
+		shared_ptr<Card> topCard = deck.BuyTopCard();
+		player->GiveCard(topCard);
+	}
+}
+
+void MyUno::GameManager::RandomizePlayerOrder()
+{
+	std::random_device rd;
+	std::mt19937 g(rd());
+	std::shuffle(players.begin(), players.end(), g);
+}
+
+void MyUno::GameManager::BeginMatch(const vector<string>& playerNames)
+{
+	deck = deckGenerator.Generate();
+	players.clear();
+	for (auto nameIt = playerNames.begin(); nameIt != playerNames.end(); ++nameIt)
+	{
+		auto currentName = *nameIt;
+		shared_ptr<Player> newPlayer = make_shared<Player>(currentName);
+		BuildPlayerHand(newPlayer);
+		players.push_back(newPlayer);
+	}
+	RandomizePlayerOrder();
+	windowManager.SwitchWindow(MainMatch);
 }

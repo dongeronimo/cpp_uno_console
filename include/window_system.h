@@ -9,6 +9,8 @@ namespace MyUno
 	class GameManager;
 	enum Windows
 	{
+		PlayerSetup,
+		MainMatch,
 		HelloWorld
 	};
 	class WindowSystem

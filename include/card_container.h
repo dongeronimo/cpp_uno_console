@@ -14,6 +14,7 @@ namespace MyUno
 		shared_ptr<Card> Top();
 		void Add(shared_ptr<Card> card);
 		void Remove(shared_ptr<Card> which);
+		shared_ptr<Card> BuyTopCard();
 		int Count();
 	};
 }
