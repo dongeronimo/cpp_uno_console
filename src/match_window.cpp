@@ -26,6 +26,7 @@ void MyUno::MatchWindow::Draw()
         cout << "Your hand: ";
         for (auto cardsIt = cardsInHand.begin(); cardsIt != cardsInHand.end(); ++cardsIt)
         {
+            shared_ptr<Card> currentCard = *cardsIt;
 
         }
         //prints the top card on the discard pile
