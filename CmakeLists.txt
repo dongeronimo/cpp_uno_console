@@ -44,5 +44,12 @@ set(sources ${sources}
 	"${CMAKE_SOURCE_DIR}/src/numeric_card_view.cpp"
     "${CMAKE_SOURCE_DIR}/include/numeric_card_view.h"
 )
-add_executable(cpp_uno ${sources} ${})
+
+add_executable(cpp_uno ${sources} )
+target_compile_definitions(cpp_uno PUBLIC NO_2PLUS) #Blocks generation of +2 cards
+target_compile_definitions(cpp_uno PUBLIC NO_REVERSE) #Blocks generation of reverse cards 
+target_compile_definitions(cpp_uno PUBLIC NO_JUMP) #Blocks generation of jump cards
+
+
 include_directories(cpp_uno ${include_dirs})
+

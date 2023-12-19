@@ -13,6 +13,6 @@ namespace MyUno
     public:
         CardView(vector<Type> acceptableTypes);
         bool CanProcess(const Type& type);
-        virtual void Print(shared_ptr<Card> card) = 0;
+        virtual void Draw(shared_ptr<Card> card) = 0;
     };
 }

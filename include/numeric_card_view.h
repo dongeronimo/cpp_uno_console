@@ -6,7 +6,7 @@ namespace MyUno
     {
     public:
         NumericCardView();
-        virtual void Print(shared_ptr<Card> card) override;
+        virtual void Draw(shared_ptr<Card> card) override;
 
     };
 }

@@ -17,6 +17,7 @@ void GenerateReverse(Color color, vector<shared_ptr<Card>>& vec);
 void GenerateJump(Color color, vector<shared_ptr<Card>>& vec);
 void GenerateColor(Color color, vector<shared_ptr<Card>>& vec);
 
+
 CardContainer DeckGenerator::Generate()
 {
     vector<shared_ptr<Card>> cards;
@@ -39,9 +40,15 @@ CardContainer DeckGenerator::Generate()
 void GenerateColor(Color color, vector<shared_ptr<Card>>& vec)
 {
     GenerateNumerics(color, vec);
+#ifndef NO_2PLUS
     Generate2Plus(color, vec);
+#endif
+#ifndef NO_REVERSE
     GenerateReverse(color, vec);
+#endif
+#ifndef NO_JUMP
     GenerateJump(color, vec);
+#endif
 }
 void GenerateNumerics(Color color, vector<shared_ptr<Card>>& vec)
 {

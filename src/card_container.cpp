@@ -5,9 +5,21 @@
 #include <algorithm>
 using namespace std;
 using namespace MyUno;
-shared_ptr<Card> MyUno::CardContainer::Top()
+
+MyUno::CardContainer::CardContainer(vector<shared_ptr<Card>> other)
 {
-    return cards[Count() - 1];
+    for (auto it = other.begin(); it != other.end(); ++it)
+    {
+        cards.push_back(*it);
+    }
+}
+
+const shared_ptr<Card> MyUno::CardContainer::Top() const
+{
+    if (cards.size() > 0)
+        return cards[Count() - 1];
+    else
+        return nullptr;
 }
 
 void MyUno::CardContainer::Add(shared_ptr<Card> card)
@@ -33,7 +45,7 @@ void MyUno::CardContainer::Remove(shared_ptr<Card> which)
     ));
 }
 
-int MyUno::CardContainer::Count()
+const int MyUno::CardContainer::Count() const
 {
     return cards.size();
 }

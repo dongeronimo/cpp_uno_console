@@ -11,9 +11,9 @@ namespace MyUno
     {
     private:
         CardContainer hand;
-        const string name;
     public:
         Player(string name);
+        const string name;
         void GiveCard(shared_ptr<Card> card);
         vector<shared_ptr<Card>> GetCards() {
             return hand.GetCards();

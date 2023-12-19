@@ -11,14 +11,16 @@ namespace MyUno
 	private:
 		vector<shared_ptr<Card>> cards;
 	public:
+		CardContainer() {}
+		CardContainer(vector<shared_ptr<Card>> other);
 		vector<shared_ptr<Card>> GetCards() {
 			return cards;
 		}
-		shared_ptr<Card> Top();
+		const shared_ptr<Card> Top() const;
 		void Add(shared_ptr<Card> card);
 		void Remove(shared_ptr<Card> which);
 		shared_ptr<Card> BuyTopCard();
-		int Count();
+		const int Count() const;
 	};
 }
 #endif

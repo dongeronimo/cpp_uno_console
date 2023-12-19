@@ -17,7 +17,8 @@ namespace MyUno
 	private:
 		DeckGenerator deckGenerator;
 		WindowSystem windowManager;
-		CardContainer deck;
+		shared_ptr<CardContainer> deck;
+		shared_ptr<CardContainer> discardPile;
 		vector<shared_ptr<Player>> players;
 		void BuildPlayerHand(shared_ptr<Player> player);
 		void RandomizePlayerOrder();
@@ -45,6 +46,8 @@ namespace MyUno
 		{
 			return players;
 		}
+		shared_ptr<CardContainer> GetDeck() { return deck; }
+		shared_ptr<CardContainer> GetDiscardPile() { return discardPile; }
 	};
 }
 

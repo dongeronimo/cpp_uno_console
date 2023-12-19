@@ -21,7 +21,7 @@ void MyUno::CreatePlayerWindow::ReadNumberOfPlayers()
         try {
             numberOfPlayers = stoi(tempInput);
         }
-        catch (const logic_error& err) {
+        catch (const logic_error& ) {
             cout << "It must be a number." << endl;
             continue;
         }

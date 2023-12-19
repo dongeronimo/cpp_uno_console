@@ -28,7 +28,7 @@ void MyUno::GameManager::BuildPlayerHand(shared_ptr<Player> player)
 {
 	for (auto i = 0; i < 7; i++)
 	{
-		shared_ptr<Card> topCard = deck.BuyTopCard();
+		shared_ptr<Card> topCard = deck->BuyTopCard();
 		player->GiveCard(topCard);
 	}
 }
@@ -42,7 +42,9 @@ void MyUno::GameManager::RandomizePlayerOrder()
 
 void MyUno::GameManager::BeginMatch(const vector<string>& playerNames)
 {
-	deck = deckGenerator.Generate();
+	auto localGenerated = deckGenerator.Generate();
+	deck = std::make_shared<CardContainer>(localGenerated.GetCards());
+	discardPile = std::make_shared<CardContainer>(); //Discard Pile begins empty
 	players.clear();
 	for (auto nameIt = playerNames.begin(); nameIt != playerNames.end(); ++nameIt)
 	{
