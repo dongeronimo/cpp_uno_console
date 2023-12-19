@@ -22,7 +22,7 @@ namespace MyUno
 	public:
 		CreatePlayerWindow(WindowSystem& manager);
 		void Draw();
-		virtual ~CreatePlayerWindow() {}
+		virtual ~CreatePlayerWindow() = default;
 	};
 }
 

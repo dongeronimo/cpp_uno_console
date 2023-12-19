@@ -40,6 +40,11 @@ namespace MyUno
 		/// </summary>
 		/// <param name="playerNames"></param>
 		void BeginMatch(const vector<string>& playerNames);
+
+		vector<shared_ptr<Player>> GetPlayers() 
+		{
+			return players;
+		}
 	};
 }
 
