@@ -12,11 +12,10 @@ using namespace std;
 using namespace MyUno;
 shared_ptr<CardView> MyUno::MatchWindow::GetCardView(MyUno::Type type)
 {
-    for (auto cardViewIt = cardViewProcessors.begin(); cardViewIt != cardViewProcessors.end(); ++cardViewIt)
+    for(auto cardView: cardViewProcessors)
     {
-        auto processor = *cardViewIt;
-        if (processor->CanProcess(type))
-            return processor;
+        if (cardView->CanProcess(type))
+            return cardView;
     }
     throw std::logic_error("can't find a processor. There must be a processor for each type. Take a look at the ctor of MatchWindow");
 }

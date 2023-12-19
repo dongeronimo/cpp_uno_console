@@ -8,18 +8,13 @@ using namespace MyUno;
 
 MyUno::CardContainer::CardContainer(vector<shared_ptr<Card>> other)
 {
-    for (auto it = other.begin(); it != other.end(); ++it)
-    {
-        cards.push_back(*it);
-    }
+    for (auto card : other)
+        cards.push_back(card);
 }
 
 const shared_ptr<Card> MyUno::CardContainer::Top() const
 {
-    if (cards.size() > 0)
-        return cards[Count() - 1];
-    else
-        return nullptr;
+    return cards.empty() ? nullptr : cards[Count() - 1];
 }
 
 void MyUno::CardContainer::Add(shared_ptr<Card> card)
