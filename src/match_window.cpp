@@ -49,9 +49,17 @@ void MyUno::MatchWindow::Draw()
         }
         cout << endl;
         //prints the top card on the discard pile
-        //const CardContainer& deck = windowSystem.gameManager.GetDeck();
-        //const shared_ptr<Card> deckTopCard = deck.Top();
-        //cout<<""
+        std::shared_ptr<Card> topDiscardPile = windowSystem.gameManager.GetDiscardPile()->Top();
+        cout << "Discard Pile top: ";
+        if (topDiscardPile != nullptr) 
+        {
+            GetCardView(topDiscardPile->type)->Draw(topDiscardPile);
+        }
+        else 
+        {
+            cout << "Is empty.";
+        }
+        cout << endl;
         //asks which card the player will play
         string input;
         cin >> input;

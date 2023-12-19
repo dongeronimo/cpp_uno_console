@@ -18,7 +18,12 @@ namespace MyUno
         vector<shared_ptr<Card>> GetCards() {
             return hand.GetCards();
         }
-
+        bool operator==(const Player& other)const {
+            return name == other.name;
+        }
+        bool operator!=(const Player& other)const {
+            return !(*this == other);
+        }
     };
 }
 #endif
