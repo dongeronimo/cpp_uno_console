@@ -12,7 +12,7 @@ using namespace std;
 using namespace MyUno;
 shared_ptr<CardView> MyUno::MatchWindow::GetCardView(MyUno::Type type)
 {
-    for(auto cardView: cardViewProcessors)
+    for (auto cardView : cardViewProcessors)
     {
         if (cardView->CanProcess(type))
             return cardView;
@@ -35,7 +35,7 @@ void MyUno::MatchWindow::Draw()
 {
     //foreach player
     auto players = windowSystem.gameManager.GetPlayers();
-    for (auto playerIt = players.begin();playerIt != players.end();++playerIt)
+    for (auto playerIt = players.begin(); playerIt != players.end(); ++playerIt)
     {
         shared_ptr<Player> currentPlayer = *playerIt;
         //clears the screen
@@ -54,11 +54,11 @@ void MyUno::MatchWindow::Draw()
         //prints the top card on the discard pile
         std::shared_ptr<Card> topDiscardPile = windowSystem.gameManager.GetDiscardPile()->Top();
         cout << "Discard Pile top: ";
-        if (topDiscardPile != nullptr) 
+        if (topDiscardPile != nullptr)
         {
             GetCardView(topDiscardPile->type)->Draw(topDiscardPile);
         }
-        else 
+        else
         {
             cout << "Is empty.";
         }
@@ -69,10 +69,10 @@ void MyUno::MatchWindow::Draw()
             auto chosenCard = ChooseCard(cardsInHand, topDiscardPile);
             windowSystem.gameManager.PlayCard(currentPlayer, chosenCard);
         }
-        else 
+        else
         {//TODO: Se não houver pede pro gameManager dar carta pro player
             auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
-            cout << "You got "; 
+            cout << "You got ";
             GetCardView(dealtCard->type)->Draw(dealtCard);
             cout << endl << "Press any key to continue.";
             string trash;
