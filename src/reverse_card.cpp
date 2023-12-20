@@ -6,7 +6,7 @@ ReverseCard::ReverseCard(Color color)
 {
 }
 
-bool MyUno::ReverseCard::CanBePlayed()
+bool MyUno::ReverseCard::CanBePlayed(const Card* topDiscardPileCard) const
 {
 	return false;
 }

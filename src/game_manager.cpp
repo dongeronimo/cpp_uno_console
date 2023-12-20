@@ -56,3 +56,16 @@ void MyUno::GameManager::BeginMatch(const vector<string>& playerNames)
 	RandomizePlayerOrder();
 	windowManager.SwitchWindow(MainMatch);
 }
+
+void MyUno::GameManager::PlayCard(shared_ptr<Player> player, shared_ptr<Card> card)
+{
+	//Tirar uma carta da mão do player
+	//Po-la na pilha de descarte
+}
+
+shared_ptr<Card> MyUno::GameManager::DealCardTo(shared_ptr<Player> player)
+{
+	//tirar uma carta da pilha de compra
+	//se pilha de compra ficar vazia, pegar toda a pilha de descarte, tranferir pra pilha de compra e reembaralhar.
+	return shared_ptr<Card>();
+}

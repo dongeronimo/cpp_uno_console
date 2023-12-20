@@ -20,6 +20,10 @@ shared_ptr<CardView> MyUno::MatchWindow::GetCardView(MyUno::Type type)
     throw std::logic_error("can't find a processor. There must be a processor for each type. Take a look at the ctor of MatchWindow");
 }
 
+
+
+
+
 MyUno::MatchWindow::MatchWindow(WindowSystem& manager)
     : Window(manager)
 {
@@ -59,8 +63,67 @@ void MyUno::MatchWindow::Draw()
             cout << "Is empty.";
         }
         cout << endl;
+        //TODO: Verificar se há possibilidade de jogar alguma carta
+        if (currentPlayer->CanPlayAnyCard(topDiscardPile.get()))
+        {//TODO: Se houver então pede pro player jogar
+            auto chosenCard = ChooseCard(cardsInHand, topDiscardPile);
+            windowSystem.gameManager.PlayCard(currentPlayer, chosenCard);
+        }
+        else 
+        {//TODO: Se não houver pede pro gameManager dar carta pro player
+            auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
+            cout << "You got "; 
+            GetCardView(dealtCard->type)->Draw(dealtCard);
+            cout << endl << "Press any key to continue.";
+            string trash;
+            cin >> trash;
+        }
+    }
+
+}
+shared_ptr<Card> MyUno::MatchWindow::ChooseCard(const vector<shared_ptr<Card>>& cardsInHand, const std::shared_ptr<Card>& topDiscardPile)
+{
+    bool cardCantBePlayed = true;
+    shared_ptr<Card> chosenCard = nullptr;
+    while (cardCantBePlayed)
+    {
         //asks which card the player will play
-        string input;
-        cin >> input;
+        chosenCard = cardsInHand[AskForCard(cardsInHand)];
+        //Can he play it?
+        cardCantBePlayed = chosenCard->CanBePlayed(topDiscardPile.get());
+        if (cardCantBePlayed)
+        {
+            cout << "Can't play this card, choose another." << std::endl;
+        }
     }
 }
+int MatchWindow::AskForCard(const vector<shared_ptr<Card>>& cardsInHand)
+{
+    bool validCardPosValue = false;
+    int cardToPlayIndex = -1;
+    while (!validCardPosValue)
+    {
+        cout << "Which card will you play? Type it's position in your hand: ";
+        string input;
+        try
+        {
+            cin >> input;
+            int positionInHand = std::stoi(input) - 1;
+            if (positionInHand < 0 || positionInHand >= cardsInHand.size()) {
+                cout << "Should be between 1 and " << cardsInHand.size() << endl;
+            }
+            else
+            {
+                cardToPlayIndex = positionInHand;
+                validCardPosValue = true;
+            }
+        }
+        catch (std::logic_error)
+        {
+            cout << "Should be between 1 and " << cardsInHand.size() << endl;
+        }
+    }
+    return cardToPlayIndex;
+}
+
+

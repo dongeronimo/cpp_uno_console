@@ -6,7 +6,7 @@ Plus2Card::Plus2Card(Color color)
 {
 }
 
-bool MyUno::Plus2Card::CanBePlayed()
+bool MyUno::Plus2Card::CanBePlayed(const Card* topDiscardPileCard) const
 {
 	return false;
 }

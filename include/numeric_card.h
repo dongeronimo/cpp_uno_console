@@ -7,7 +7,7 @@ namespace MyUno
 	{
 	public:
 		NumericCard(Color color, int number);
-		bool CanBePlayed();
+		bool CanBePlayed(const Card* topDiscardPileCard) const;
 		void ExecuteAction();
 		virtual ~NumericCard() {}
 	};

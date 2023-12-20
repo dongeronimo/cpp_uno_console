@@ -37,10 +37,19 @@ NumericCard::NumericCard(Color color, int number)
 	:Card(color, NumberToType(number))
 {
 }
-
-bool MyUno::NumericCard::CanBePlayed()
+/// <summary>
+/// Can only be played if the top discard pile card is the same color or the same type
+/// </summary>
+/// <param name="topDiscardPileCard"></param>
+/// <returns></returns>
+bool MyUno::NumericCard::CanBePlayed(const Card* topDiscardPileCard) const
 {
-	return false;
+	//is there any card?
+	bool isEmpty = topDiscardPileCard == nullptr;
+	//Is a numeric card?
+	bool isNumeric = !isEmpty && dynamic_cast<const NumericCard*>(topDiscardPileCard) != nullptr;
+	bool isSameColor = !isEmpty && topDiscardPileCard->color == this->color;
+	return isNumeric || isSameColor || isEmpty;
 }
 
 void MyUno::NumericCard::ExecuteAction()

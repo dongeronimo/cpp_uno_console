@@ -13,7 +13,7 @@ namespace MyUno
 	public:
 		CardContainer() {}
 		CardContainer(vector<shared_ptr<Card>> other);
-		vector<shared_ptr<Card>> GetCards() {
+		vector<shared_ptr<Card>> GetCards() const {
 			return cards;
 		}
 		const shared_ptr<Card> Top() const;

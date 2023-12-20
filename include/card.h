@@ -1,6 +1,7 @@
 #ifndef __card_h
 #define __card_h
 #include <string>
+#include <memory>
 namespace MyUno
 {
 	enum Color {Red, Green, Blue, Yellow};
@@ -15,7 +16,7 @@ namespace MyUno
 		const Color color;
 		const Type type;
 		Card(Color color, Type type);
-		virtual bool CanBePlayed() = 0;
+		virtual bool CanBePlayed(const Card* topDiscardPileCard) const = 0;
 		virtual void ExecuteAction() = 0;
 		bool operator==(const Card& other) const {
 			return id == other.id;

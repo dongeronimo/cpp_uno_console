@@ -24,6 +24,7 @@ namespace MyUno
         bool operator!=(const Player& other)const {
             return !(*this == other);
         }
+        bool CanPlayAnyCard(const Card* topDiscardPile) const;
     };
 }
 #endif

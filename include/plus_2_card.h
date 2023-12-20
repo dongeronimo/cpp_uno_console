@@ -7,7 +7,7 @@ namespace MyUno
 	{
 	public:
 		Plus2Card(Color color);
-		bool CanBePlayed();
+		bool CanBePlayed(const Card* topDiscardPileCard) const;
 		void ExecuteAction();
 		virtual ~Plus2Card() {}
 	};

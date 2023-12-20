@@ -5,7 +5,7 @@ JumpCard::JumpCard(Color color)
 {
 }
 
-bool MyUno::JumpCard::CanBePlayed()
+bool MyUno::JumpCard::CanBePlayed(const Card* topDiscardPileCard) const
 {
 	return false;
 }

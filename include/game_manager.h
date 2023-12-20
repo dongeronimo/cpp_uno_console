@@ -48,6 +48,8 @@ namespace MyUno
 		}
 		shared_ptr<CardContainer> GetDeck() { return deck; }
 		shared_ptr<CardContainer> GetDiscardPile() { return discardPile; }
+		void PlayCard(shared_ptr<Player> player, shared_ptr<Card> card);
+		shared_ptr<Card> DealCardTo(shared_ptr<Player> player);
 	};
 }
 
