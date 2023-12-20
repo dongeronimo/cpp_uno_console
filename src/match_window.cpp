@@ -90,12 +90,13 @@ shared_ptr<Card> MyUno::MatchWindow::ChooseCard(const vector<shared_ptr<Card>>& 
         //asks which card the player will play
         chosenCard = cardsInHand[AskForCard(cardsInHand)];
         //Can he play it?
-        cardCantBePlayed = chosenCard->CanBePlayed(topDiscardPile.get());
+        cardCantBePlayed = !chosenCard->CanBePlayed(topDiscardPile.get());
         if (cardCantBePlayed)
         {
             cout << "Can't play this card, choose another." << std::endl;
         }
     }
+    return chosenCard;
 }
 int MatchWindow::AskForCard(const vector<shared_ptr<Card>>& cardsInHand)
 {
