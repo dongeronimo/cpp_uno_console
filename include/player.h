@@ -15,6 +15,7 @@ namespace MyUno
         Player(string name);
         const string name;
         void GiveCard(shared_ptr<Card> card);
+        void RemoveCardFromHand(shared_ptr<Card> which);
         vector<shared_ptr<Card>> GetCards() {
             return hand.GetCards();
         }

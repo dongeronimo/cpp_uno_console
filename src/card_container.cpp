@@ -29,6 +29,10 @@ shared_ptr<Card> MyUno::CardContainer::BuyTopCard()
     return topCard;
 }
 
+void MyUno::CardContainer::Shuffle()
+{
+}
+
 void MyUno::CardContainer::Remove(shared_ptr<Card> which)
 {
     cards.erase(std::remove_if(

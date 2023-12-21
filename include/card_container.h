@@ -20,6 +20,7 @@ namespace MyUno
 		void Add(shared_ptr<Card> card);
 		void Remove(shared_ptr<Card> which);
 		shared_ptr<Card> BuyTopCard();
+		void Shuffle();
 		const int Count() const;
 	};
 }

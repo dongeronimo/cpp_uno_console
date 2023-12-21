@@ -57,15 +57,27 @@ void MyUno::GameManager::BeginMatch(const vector<string>& playerNames)
 	windowManager.SwitchWindow(MainMatch);
 }
 
-void MyUno::GameManager::PlayCard(shared_ptr<Player> player, shared_ptr<Card> card)
+void MyUno::GameManager::PlayCard(shared_ptr<Player> player, shared_ptr<Card> chosenCard)
 {
-	//Tirar uma carta da mão do player
+	//Tirar a carta da mão do player
+	player->RemoveCardFromHand(chosenCard);
 	//Po-la na pilha de descarte
+	discardPile->Add(chosenCard);
 }
 
 shared_ptr<Card> MyUno::GameManager::DealCardTo(shared_ptr<Player> player)
 {
 	//tirar uma carta da pilha de compra
+	auto card = deck->BuyTopCard();
 	//se pilha de compra ficar vazia, pegar toda a pilha de descarte, tranferir pra pilha de compra e reembaralhar.
+	if (deck->Count() == 0)
+	{
+		while (discardPile->Count() > 0) 
+		{
+			auto bought = discardPile->BuyTopCard();
+			deck->Add(bought);
+		}
+
+	}
 	return shared_ptr<Card>();
 }
