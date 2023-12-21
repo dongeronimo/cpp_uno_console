@@ -59,9 +59,7 @@ void MyUno::GameManager::BeginMatch(const vector<string>& playerNames)
 
 void MyUno::GameManager::PlayCard(shared_ptr<Player> player, shared_ptr<Card> chosenCard)
 {
-	//Tirar a carta da mão do player
 	player->RemoveCardFromHand(chosenCard);
-	//Po-la na pilha de descarte
 	discardPile->Add(chosenCard);
 }
 
@@ -80,5 +78,6 @@ shared_ptr<Card> MyUno::GameManager::DealCardTo(shared_ptr<Player> player)
 		}
 		deck->Shuffle();
 	}
+	player->GiveCard(card);
 	return card;
 }
