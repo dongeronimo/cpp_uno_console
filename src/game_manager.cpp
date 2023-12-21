@@ -72,12 +72,13 @@ shared_ptr<Card> MyUno::GameManager::DealCardTo(shared_ptr<Player> player)
 	//se pilha de compra ficar vazia, pegar toda a pilha de descarte, tranferir pra pilha de compra e reembaralhar.
 	if (deck->Count() == 0)
 	{
+		//TODO: criar um bulk move pra mover todas de uma vez.
 		while (discardPile->Count() > 0) 
 		{
 			auto bought = discardPile->BuyTopCard();
 			deck->Add(bought);
 		}
-
+		deck->Shuffle();
 	}
-	return shared_ptr<Card>();
+	return card;
 }

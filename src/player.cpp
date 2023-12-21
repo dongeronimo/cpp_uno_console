@@ -25,5 +25,6 @@ bool MyUno::Player::CanPlayAnyCard(const Card* topDiscardPile) const
         if (currentCard->CanBePlayed(topDiscardPile) == true)
             canPlay = true;
     }
+
     return canPlay;
 }
