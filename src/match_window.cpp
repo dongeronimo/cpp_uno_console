@@ -35,14 +35,18 @@ void MyUno::MatchWindow::Draw()
 {
     //foreach player
     auto players = windowSystem.gameManager.GetPlayers();
-    for (auto playerIt = players.begin(); playerIt != players.end(); ++playerIt)
-    {
-        shared_ptr<Player> currentPlayer = *playerIt;
+    for(int i=0; i<players.size(); i++)
+    { 
+        shared_ptr<Player> previousPlayer = i > 0 ? players[i - 1] : players[players.size()-1];
+        shared_ptr<Player> currentPlayer = players[i];
+        shared_ptr<Player> nextPlayer = i < players.size() - 1 ? players[i + 1] : players[0];
         //clears the screen
         system("cls");
         //print it's cards
         vector<shared_ptr<Card>> cardsInHand = currentPlayer->GetCards();
-        cout << currentPlayer->name << endl;
+        cout << "previous player: " << previousPlayer->name << endl;
+        cout << "current player (you): " << currentPlayer->name << endl;
+        cout << "next player: " << nextPlayer->name << endl;
         cout << "Your hand: ";
         for (auto cardsIt = cardsInHand.begin(); cardsIt != cardsInHand.end(); ++cardsIt)
         {
