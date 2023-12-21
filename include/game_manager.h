@@ -8,6 +8,7 @@
 using namespace std;
 namespace MyUno
 {
+	enum Increment{Positive=1, Negative=-1};
 	class Player;
 	/// <summary>
 	/// Orchestrates the game.
@@ -23,6 +24,8 @@ namespace MyUno
 		void BuildPlayerHand(shared_ptr<Player> player);
 		void RandomizePlayerOrder();
 		bool isRunning;
+		int currentPlayerId;
+		Increment increment;
 		GameManager();
 	public:
 		static GameManager& GetInstance()
@@ -57,6 +60,12 @@ namespace MyUno
 		shared_ptr<CardContainer> GetDiscardPile() { return discardPile; }
 		void PlayCard(shared_ptr<Player> player, shared_ptr<Card> card);
 		shared_ptr<Card> DealCardTo(shared_ptr<Player> player);
+		void RevertOrderOfMatch();
+
+		shared_ptr<Player> GetCurrentPlayer();
+		shared_ptr<Player> GetPreviousPlayer();
+		shared_ptr<Player> GetNextPlayer();
+		void EndTurn();
 	};
 }
 

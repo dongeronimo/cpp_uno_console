@@ -2,12 +2,15 @@
 #include <iostream>
 #include <random>
 #include "player.h"
+#include "random.h"
 using namespace MyUno;
 
 
 GameManager::GameManager()
 	:isRunning(false),
-	windowManager(WindowSystem(*this))
+	windowManager(WindowSystem(*this)),
+	currentPlayerId(0),
+	increment(Positive)
 {
 }
 
@@ -35,9 +38,7 @@ void MyUno::GameManager::BuildPlayerHand(shared_ptr<Player> player)
 
 void MyUno::GameManager::RandomizePlayerOrder()
 {
-	std::random_device rd;
-	std::mt19937 g(rd());
-	std::shuffle(players.begin(), players.end(), g);
+//3	std::shuffle(players.begin(), players.end(), MyRandom::GetInstance().GetGenerator());
 }
 
 void MyUno::GameManager::BeginMatch(const vector<string>& playerNames)
@@ -81,4 +82,83 @@ shared_ptr<Card> MyUno::GameManager::DealCardTo(shared_ptr<Player> player)
 	}
 	player->GiveCard(card);
 	return card;
+}
+
+void MyUno::GameManager::RevertOrderOfMatch()
+{
+	if (increment == Positive) 
+	{
+		increment = Negative;
+		return;
+	}
+	if (increment == Negative)
+	{
+		increment = Positive;
+		return;
+	}
+}
+
+shared_ptr<Player> MyUno::GameManager::GetCurrentPlayer()
+{
+	return players[currentPlayerId];
+}
+
+shared_ptr<Player> MyUno::GameManager::GetPreviousPlayer()
+{
+	if (increment == Positive)
+	{//incremento positivo, overflow no começo
+		if (currentPlayerId - Positive < 0) {
+			return players[players.size()-1];
+		}
+		else {
+			return players[currentPlayerId - Positive];
+		}
+	}
+	else
+	{
+		if (currentPlayerId - Negative >= players.size()) {
+			return players[0];
+		}
+		else {
+			return players[currentPlayerId - Negative];
+		}
+	}
+}
+
+shared_ptr<Player> MyUno::GameManager::GetNextPlayer()
+{
+	if (increment == Positive)
+	{//Incremento positivo, overflow no final
+		if (currentPlayerId + Positive >= players.size()) {
+			return players[0];
+		}
+		else {
+			return players[currentPlayerId + Positive];
+		}
+	}
+	else
+	{//incremento negativo, overflow no inicio
+		if (currentPlayerId + Negative < 0) {
+			return players[players.size() - 1];
+		}
+		else {
+			return players[currentPlayerId + Negative];
+		}
+	}
+}
+
+void MyUno::GameManager::EndTurn()
+{
+	currentPlayerId = currentPlayerId + increment;
+	if (currentPlayerId < 0)
+	{
+		currentPlayerId = players.size() - 1;
+		return;
+	}
+	if (currentPlayerId >= players.size())
+	{
+		currentPlayerId = 0;
+		return;
+	}
+		
 }

@@ -1,4 +1,5 @@
 #include "reverse_card.h"
+#include "game_manager.h"
 using namespace MyUno;
 
 ReverseCard::ReverseCard(Color color)
@@ -18,4 +19,5 @@ bool MyUno::ReverseCard::CanBePlayed(const Card* topDiscardPileCard) const
 
 void MyUno::ReverseCard::ExecuteAction()
 {
+	GameManager::GetInstance().RevertOrderOfMatch();
 }
