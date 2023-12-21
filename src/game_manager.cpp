@@ -65,11 +65,10 @@ void MyUno::GameManager::PlayCard(shared_ptr<Player> player, shared_ptr<Card> ch
 
 shared_ptr<Card> MyUno::GameManager::DealCardTo(shared_ptr<Player> player)
 {
-	//tirar uma carta da pilha de compra
 	auto card = deck->BuyTopCard();
-	//se pilha de compra ficar vazia, pegar toda a pilha de descarte, tranferir pra pilha de compra e reembaralhar.
 	if (deck->Count() == 0)
 	{
+		auto topDiscardPile = discardPile->BuyTopCard();
 		//TODO: criar um bulk move pra mover todas de uma vez.
 		while (discardPile->Count() > 0) 
 		{
@@ -77,6 +76,7 @@ shared_ptr<Card> MyUno::GameManager::DealCardTo(shared_ptr<Player> player)
 			deck->Add(bought);
 		}
 		deck->Shuffle();
+		discardPile->Add(topDiscardPile);//Volta com a carta pro topo
 	}
 	player->GiveCard(card);
 	return card;
