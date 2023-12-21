@@ -21,10 +21,6 @@ shared_ptr<CardView> MyUno::MatchWindow::GetCardView(MyUno::Type type)
     throw std::logic_error("can't find a processor. There must be a processor for each type. Take a look at the ctor of MatchWindow");
 }
 
-
-
-
-
 MyUno::MatchWindow::MatchWindow(WindowSystem& manager)
     : Window(manager)
 {
