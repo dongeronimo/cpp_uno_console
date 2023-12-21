@@ -10,6 +10,11 @@ void MyUno::Player::GiveCard(shared_ptr<Card> card)
     hand.Add(card);
 }
 
+void MyUno::Player::RemoveCardFromHand(shared_ptr<Card> whichCard)
+{
+    hand.Remove(whichCard);
+}
+
 bool MyUno::Player::CanPlayAnyCard(const Card* topDiscardPile) const
 {
     bool canPlay = false;
@@ -20,5 +25,6 @@ bool MyUno::Player::CanPlayAnyCard(const Card* topDiscardPile) const
         if (currentCard->CanBePlayed(topDiscardPile) == true)
             canPlay = true;
     }
+
     return canPlay;
 }

@@ -2,6 +2,7 @@
 #include "card.h"
 #include <memory>
 #include <vector>
+#include "random.h"
 #include <algorithm>
 using namespace std;
 using namespace MyUno;
@@ -27,6 +28,11 @@ shared_ptr<Card> MyUno::CardContainer::BuyTopCard()
     auto topCard = Top();
     Remove(topCard);
     return topCard;
+}
+
+void MyUno::CardContainer::Shuffle()
+{
+    std::shuffle(cards.begin(), cards.end(), MyRandom::GetInstance().GetGenerator());
 }
 
 void MyUno::CardContainer::Remove(shared_ptr<Card> which)

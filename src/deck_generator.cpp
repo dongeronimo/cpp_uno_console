@@ -9,6 +9,7 @@
 #include "jump_card.h"
 #include "plus_2_card.h"
 #include "reverse_card.h"
+#include "random.h"
 using namespace MyUno;
 using namespace std;
 void GenerateNumerics(Color color, vector<shared_ptr<Card>>& vec);
@@ -25,9 +26,8 @@ CardContainer DeckGenerator::Generate()
     GenerateColor(Green, cards);
     GenerateColor(Blue, cards);
     GenerateColor(Yellow, cards);
-    std::random_device rd;
-    std::mt19937 g(rd());
-    std::shuffle(cards.begin(), cards.end(), g);
+
+    std::shuffle(cards.begin(), cards.end(), MyRandom::GetInstance().GetGenerator());
     CardContainer container;
     for (auto i = 0; i < cards.size(); i++)
     {

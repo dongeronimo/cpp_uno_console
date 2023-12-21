@@ -43,6 +43,11 @@ set(sources ${sources}
 	
 	"${CMAKE_SOURCE_DIR}/src/numeric_card_view.cpp"
     "${CMAKE_SOURCE_DIR}/include/numeric_card_view.h"
+
+    "${CMAKE_SOURCE_DIR}/src/random.cpp"
+    "${CMAKE_SOURCE_DIR}/include/random.h"
+
+
 )
 
 add_executable(cpp_uno ${sources} )
