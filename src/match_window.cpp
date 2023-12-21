@@ -66,14 +66,13 @@ void MyUno::MatchWindow::Draw()
             cout << "Is empty.";
         }
         cout << endl;
-        //TODO: Verificar se há possibilidade de jogar alguma carta
         if (currentPlayer->CanPlayAnyCard(topDiscardPile.get()))
-        {//TODO: Se houver então pede pro player jogar
+        {
             auto chosenCard = ChooseCard(cardsInHand, topDiscardPile);
             windowSystem.gameManager.PlayCard(currentPlayer, chosenCard);
         }
         else
-        {//TODO: Se não houver pede pro gameManager dar carta pro player
+        {
             auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
             cout << "You got ";
             GetCardView(dealtCard->type)->Draw(dealtCard);

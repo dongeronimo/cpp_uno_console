@@ -23,8 +23,15 @@ namespace MyUno
 		void BuildPlayerHand(shared_ptr<Player> player);
 		void RandomizePlayerOrder();
 		bool isRunning;
-	public:
 		GameManager();
+	public:
+		static GameManager& GetInstance()
+		{
+			static GameManager instance;
+			return instance;
+		}
+		GameManager(GameManager const&) = delete;
+		void operator=(GameManager const&) = delete;
 		/// <summary>
 		/// End the main game loop by setting IsRunning to false. The next time the game loop
 		/// is evaluated it'll evaluate to false

@@ -61,6 +61,7 @@ void MyUno::GameManager::PlayCard(shared_ptr<Player> player, shared_ptr<Card> ch
 {
 	player->RemoveCardFromHand(chosenCard);
 	discardPile->Add(chosenCard);
+	chosenCard->ExecuteAction();
 }
 
 shared_ptr<Card> MyUno::GameManager::DealCardTo(shared_ptr<Player> player)
