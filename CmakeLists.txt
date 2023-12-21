@@ -47,12 +47,15 @@ set(sources ${sources}
     "${CMAKE_SOURCE_DIR}/src/random.cpp"
     "${CMAKE_SOURCE_DIR}/include/random.h"
 
-
+    "${CMAKE_SOURCE_DIR}/src/reverse_card_view.cpp"
+    "${CMAKE_SOURCE_DIR}/include/reverse_card_view.h"
+    "${CMAKE_SOURCE_DIR}/src/card_print.cpp"
+    "${CMAKE_SOURCE_DIR}/include/card_print.h"
 )
 
 add_executable(cpp_uno ${sources} )
 target_compile_definitions(cpp_uno PUBLIC NO_2PLUS) #Blocks generation of +2 cards
-target_compile_definitions(cpp_uno PUBLIC NO_REVERSE) #Blocks generation of reverse cards 
+#target_compile_definitions(cpp_uno PUBLIC NO_REVERSE) #Blocks generation of reverse cards 
 target_compile_definitions(cpp_uno PUBLIC NO_JUMP) #Blocks generation of jump cards
 
 
