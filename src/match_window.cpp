@@ -21,10 +21,6 @@ shared_ptr<CardView> MyUno::MatchWindow::GetCardView(MyUno::Type type)
     throw std::logic_error("can't find a processor. There must be a processor for each type. Take a look at the ctor of MatchWindow");
 }
 
-
-
-
-
 MyUno::MatchWindow::MatchWindow(WindowSystem& manager)
     : Window(manager)
 {
@@ -36,58 +32,61 @@ MyUno::MatchWindow::MatchWindow(WindowSystem& manager)
 
 void MyUno::MatchWindow::Draw()
 {
-    //foreach player
-    auto players = windowSystem.gameManager.GetPlayers();
-    for(int i=0; i<players.size(); i++)
-    { 
-        shared_ptr<Player> previousPlayer = i > 0 ? players[i - 1] : players[players.size()-1];
-        shared_ptr<Player> currentPlayer = players[i];
-        shared_ptr<Player> nextPlayer = i < players.size() - 1 ? players[i + 1] : players[0];
-        //clears the screen
-        system("cls");
-        //print it's cards
-        vector<shared_ptr<Card>> cardsInHand = currentPlayer->GetCards();
-        cout << "previous player: " << previousPlayer->name << endl;
-        cout << "current player (you): " << currentPlayer->name << endl;
-        cout << "next player: " << nextPlayer->name << endl;
-        cout << "Your hand: ";
-        for (auto cardsIt = cardsInHand.begin(); cardsIt != cardsInHand.end(); ++cardsIt)
-        {
-            shared_ptr<Card> currentCard = *cardsIt;
-            shared_ptr<CardView> cardView = GetCardView(currentCard->type);
-            cardView->Draw(currentCard);
-        }
-        cout << endl;
-        //prints the top card on the discard pile
-        std::shared_ptr<Card> topDiscardPile = windowSystem.gameManager.GetDiscardPile()->Top();
-        cout << "Discard Pile top: ";
-        if (topDiscardPile != nullptr)
-        {
-            GetCardView(topDiscardPile->type)->Draw(topDiscardPile);
-        }
-        else
-        {
-            cout << "Is empty.";
-        }
-        cout << endl;
-        //TODO: Verificar se há possibilidade de jogar alguma carta
-        if (currentPlayer->CanPlayAnyCard(topDiscardPile.get()))
-        {//TODO: Se houver então pede pro player jogar
-            auto chosenCard = ChooseCard(cardsInHand, topDiscardPile);
-            windowSystem.gameManager.PlayCard(currentPlayer, chosenCard);
-        }
-        else
-        {//TODO: Se não houver pede pro gameManager dar carta pro player
-            auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
-            cout << "You got ";
-            GetCardView(dealtCard->type)->Draw(dealtCard);
-            cout << endl << "Press any key to continue.";
-            string trash;
-            cin >> trash;
-        }
+    shared_ptr<Player> currentPlayer = windowSystem.gameManager.GetCurrentPlayer();
+    shared_ptr<Player> previousPlayer = windowSystem.gameManager.GetPreviousPlayer();
+    shared_ptr<Player> nextPlayer = windowSystem.gameManager.GetNextPlayer();
+    /*auto players = windowSystem.gameManager.GetPlayers();
+    int i = currentPlayerId;*/
+
+
+    //shared_ptr<Player> previousPlayer = i > 0 ? players[i - 1] : players[players.size() - 1];
+    //shared_ptr<Player> currentPlayer = players[i];
+    //shared_ptr<Player> nextPlayer = i < players.size() - 1 ? players[i + 1] : players[0];
+    //clears the screen
+    system("cls");
+    //print it's cards
+    vector<shared_ptr<Card>> cardsInHand = currentPlayer->GetCards();
+    cout << "previous player: " << previousPlayer->name << endl;
+    cout << "current player (you): " << currentPlayer->name << endl;
+    cout << "next player: " << nextPlayer->name << endl;
+    cout << "Your hand: ";
+    for (auto cardsIt = cardsInHand.begin(); cardsIt != cardsInHand.end(); ++cardsIt)
+    {
+        shared_ptr<Card> currentCard = *cardsIt;
+        shared_ptr<CardView> cardView = GetCardView(currentCard->type);
+        cardView->Draw(currentCard);
     }
+    cout << endl;
+    //prints the top card on the discard pile
+    std::shared_ptr<Card> topDiscardPile = windowSystem.gameManager.GetDiscardPile()->Top();
+    cout << "Discard Pile top: ";
+    if (topDiscardPile != nullptr)
+    {
+        GetCardView(topDiscardPile->type)->Draw(topDiscardPile);
+    }
+    else
+    {
+        cout << "Is empty.";
+    }
+    cout << endl;
+    if (currentPlayer->CanPlayAnyCard(topDiscardPile.get()))
+    {
+        auto chosenCard = ChooseCard(cardsInHand, topDiscardPile);
+        windowSystem.gameManager.PlayCard(currentPlayer, chosenCard);
+    }
+    else
+    {
+        auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
+        cout << "You got ";
+        GetCardView(dealtCard->type)->Draw(dealtCard);
+        cout << endl << "Press any key to continue.";
+        string trash;
+        cin >> trash;
+    }
+    windowSystem.gameManager.EndTurn();
 
 }
+
 shared_ptr<Card> MyUno::MatchWindow::ChooseCard(const vector<shared_ptr<Card>>& cardsInHand, const std::shared_ptr<Card>& topDiscardPile)
 {
     bool cardCantBePlayed = true;
@@ -133,5 +132,7 @@ int MatchWindow::AskForCard(const vector<shared_ptr<Card>>& cardsInHand)
     }
     return cardToPlayIndex;
 }
+
+
 
 
