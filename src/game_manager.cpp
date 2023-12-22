@@ -92,65 +92,35 @@ void MyUno::GameManager::RevertOrderOfMatch()
 
 shared_ptr<Player> MyUno::GameManager::GetCurrentPlayer()
 {
-	return players[currentPlayerId];
+	return players[currentPlayerId % players.size()];
 }
 
 shared_ptr<Player> MyUno::GameManager::GetPreviousPlayer()
 {
 	if (increment == Positive)
-	{//incremento positivo, overflow no começo
-		if (currentPlayerId - Positive < 0) {
-			return players[players.size()-1];
-		}
-		else {
-			return players[currentPlayerId - Positive];
-		}
+	{
+		return players[(currentPlayerId - Positive) % players.size()];
 	}
 	else
 	{
-		if (currentPlayerId - Negative >= players.size()) {
-			return players[0];
-		}
-		else {
-			return players[currentPlayerId - Negative];
-		}
+		return players[(currentPlayerId - Negative) % players.size()];
 	}
 }
 
 shared_ptr<Player> MyUno::GameManager::GetNextPlayer()
 {
 	if (increment == Positive)
-	{//Incremento positivo, overflow no final
-		if (currentPlayerId + Positive >= players.size()) {
-			return players[0];
-		}
-		else {
-			return players[currentPlayerId + Positive];
-		}
+	{
+		return players[(currentPlayerId + Positive) % players.size()];
 	}
 	else
-	{//incremento negativo, overflow no inicio
-		if (currentPlayerId + Negative < 0) {
-			return players[players.size() - 1];
-		}
-		else {
-			return players[currentPlayerId + Negative];
-		}
+	{
+		return players[(currentPlayerId + Negative) % players.size()];
 	}
 }
 
 void MyUno::GameManager::EndTurn()
 {
 	currentPlayerId = currentPlayerId + increment;
-	if (currentPlayerId < 0)
-	{
-		currentPlayerId = players.size() - 1;
-		return;
-	}
-	if (currentPlayerId >= players.size())
-	{
-		currentPlayerId = 0;
-		return;
-	}
-		
+	
 }
