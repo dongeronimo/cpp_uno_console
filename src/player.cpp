@@ -32,15 +32,14 @@ bool MyUno::Player::CanPlayAnyCard(const Card* topDiscardPile) const
 
 bool Player::HasPlus2() const
 {
-    bool hasPlus2 = false;
     auto cards = hand.GetCards();
     for (auto cardsIt = cards.begin(); cardsIt != cards.end(); ++cardsIt)
     {
         auto currentCard = *cardsIt;
         if (currentCard->type == Plus2) 
         {
-            hasPlus2 = true;
+            return true;
         }
     }
-    return hasPlus2;
+    return false;
 }
