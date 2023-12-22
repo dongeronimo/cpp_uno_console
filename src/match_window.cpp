@@ -173,12 +173,12 @@ shared_ptr<Card> MyUno::MatchWindow::AskForPlus2(const vector<shared_ptr<Card>>&
     while (!playingAPlus2) {
         cout << "You have to play one of your +2 cards (";
         for (auto i : plus2Idx)
-            cout << i << ",";
+            cout << i+1 << ",";
         cout << "):";
         string str;
         cin >> str;
         try {
-            int idx = stoi(str);
+            int idx = stoi(str) - 1;
             bool isInsideIdx = false;
             for (auto i : plus2Idx)
             {
