@@ -46,10 +46,9 @@ bool MyUno::NumericCard::CanBePlayed(const Card* topDiscardPileCard) const
 {
 	//is there any card?
 	bool isEmpty = topDiscardPileCard == nullptr;
-	//Is a numeric card?
-	bool isNumeric = !isEmpty && dynamic_cast<const NumericCard*>(topDiscardPileCard) != nullptr;
 	bool isSameColor = !isEmpty && topDiscardPileCard->color == this->color;
-	return isNumeric || isSameColor || isEmpty;
+	bool isSameNumber = !isEmpty && topDiscardPileCard->type == this->type;
+	return isEmpty || (isSameColor || isSameNumber);  //|| isSameColor || isEmpty;
 }
 
 void MyUno::NumericCard::ExecuteAction()
