@@ -61,6 +61,7 @@ namespace MyUno
 		void PlayCard(shared_ptr<Player> player, shared_ptr<Card> card);
 		shared_ptr<Card> DealCardTo(shared_ptr<Player> player);
 		void RevertOrderOfMatch();
+		void Jump();
 
 		shared_ptr<Player> GetCurrentPlayer();
 		shared_ptr<Player> GetPreviousPlayer();
