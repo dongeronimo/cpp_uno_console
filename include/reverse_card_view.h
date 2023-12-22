@@ -3,10 +3,10 @@
 #include "card_print.h"
 namespace MyUno
 {
-    class NumericCardView : public CardView
+    class ReverseCardView : public CardView
     {
     public:
-        NumericCardView();
+        ReverseCardView();
         virtual void Draw(shared_ptr<Card> card) override;
 
     };

@@ -4,7 +4,6 @@ using namespace std;
 using namespace MyUno;
 
 int main(){
-    GameManager manager;
-    manager.GameLoop();
+    GameManager::GetInstance().GameLoop();
     return 0;    
 }

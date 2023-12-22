@@ -2,12 +2,15 @@
 #include <iostream>
 #include <random>
 #include "player.h"
+#include "random.h"
 using namespace MyUno;
 
 
 GameManager::GameManager()
 	:isRunning(false),
-	windowManager(WindowSystem(*this))
+	windowManager(WindowSystem(*this)),
+	currentPlayerId(0),
+	increment(Positive)
 {
 }
 
@@ -35,9 +38,7 @@ void MyUno::GameManager::BuildPlayerHand(shared_ptr<Player> player)
 
 void MyUno::GameManager::RandomizePlayerOrder()
 {
-	std::random_device rd;
-	std::mt19937 g(rd());
-	std::shuffle(players.begin(), players.end(), g);
+//3	std::shuffle(players.begin(), players.end(), MyRandom::GetInstance().GetGenerator());
 }
 
 void MyUno::GameManager::BeginMatch(const vector<string>& playerNames)
@@ -61,6 +62,7 @@ void MyUno::GameManager::PlayCard(shared_ptr<Player> player, shared_ptr<Card> ch
 {
 	player->RemoveCardFromHand(chosenCard);
 	discardPile->Add(chosenCard);
+	chosenCard->ExecuteAction();
 }
 
 shared_ptr<Card> MyUno::GameManager::DealCardTo(shared_ptr<Player> player)
@@ -80,4 +82,45 @@ shared_ptr<Card> MyUno::GameManager::DealCardTo(shared_ptr<Player> player)
 	}
 	player->GiveCard(card);
 	return card;
+}
+
+void MyUno::GameManager::RevertOrderOfMatch()
+{
+	increment = increment == Positive ? Negative : Positive;
+	
+}
+
+shared_ptr<Player> MyUno::GameManager::GetCurrentPlayer()
+{
+	return players[currentPlayerId % players.size()];
+}
+
+shared_ptr<Player> MyUno::GameManager::GetPreviousPlayer()
+{
+	if (increment == Positive)
+	{
+		return players[(currentPlayerId - Positive) % players.size()];
+	}
+	else
+	{
+		return players[(currentPlayerId - Negative) % players.size()];
+	}
+}
+
+shared_ptr<Player> MyUno::GameManager::GetNextPlayer()
+{
+	if (increment == Positive)
+	{
+		return players[(currentPlayerId + Positive) % players.size()];
+	}
+	else
+	{
+		return players[(currentPlayerId + Negative) % players.size()];
+	}
+}
+
+void MyUno::GameManager::EndTurn()
+{
+	currentPlayerId = currentPlayerId + increment;
+	
 }
