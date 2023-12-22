@@ -26,6 +26,7 @@ namespace MyUno
             return !(*this == other);
         }
         bool CanPlayAnyCard(const Card* topDiscardPile) const;
+        bool HasPlus2()const;
     };
 }
 #endif

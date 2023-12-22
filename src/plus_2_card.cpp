@@ -1,4 +1,5 @@
 #include "plus_2_card.h"
+#include "game_manager.h"
 using namespace MyUno;
 
 Plus2Card::Plus2Card(Color color)
@@ -18,4 +19,5 @@ bool MyUno::Plus2Card::CanBePlayed(const Card* topDiscardPileCard) const
 
 void MyUno::Plus2Card::ExecuteAction()
 {
+	GameManager::GetInstance().IncreasePlus2Stack();
 }
