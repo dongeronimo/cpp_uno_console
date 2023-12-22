@@ -38,7 +38,9 @@ void MyUno::GameManager::BuildPlayerHand(shared_ptr<Player> player)
 
 void MyUno::GameManager::RandomizePlayerOrder()
 {
-//3	std::shuffle(players.begin(), players.end(), MyRandom::GetInstance().GetGenerator());
+#ifndef NO_RANDOM_ORDERING
+	std::shuffle(players.begin(), players.end(), MyRandom::GetInstance().GetGenerator());
+#endif 
 }
 
 void MyUno::GameManager::BeginMatch(const vector<string>& playerNames)

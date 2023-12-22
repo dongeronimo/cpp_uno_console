@@ -57,7 +57,7 @@ add_executable(cpp_uno ${sources} )
 target_compile_definitions(cpp_uno PUBLIC NO_2PLUS) #Blocks generation of +2 cards
 #target_compile_definitions(cpp_uno PUBLIC NO_REVERSE) #Blocks generation of reverse cards 
 target_compile_definitions(cpp_uno PUBLIC NO_JUMP) #Blocks generation of jump cards
-
+target_compile_definitions(cpp_uno PUBLIC NO_RANDOM_ORDERING)#Controls if it'll use random ordering of players
 
 include_directories(cpp_uno ${include_dirs})
 
