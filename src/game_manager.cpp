@@ -86,16 +86,8 @@ shared_ptr<Card> MyUno::GameManager::DealCardTo(shared_ptr<Player> player)
 
 void MyUno::GameManager::RevertOrderOfMatch()
 {
-	if (increment == Positive) 
-	{
-		increment = Negative;
-		return;
-	}
-	if (increment == Negative)
-	{
-		increment = Positive;
-		return;
-	}
+	increment = increment == Positive ? Negative : Positive;
+	
 }
 
 shared_ptr<Player> MyUno::GameManager::GetCurrentPlayer()
