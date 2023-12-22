@@ -92,6 +92,11 @@ void MyUno::GameManager::RevertOrderOfMatch()
 	
 }
 
+void MyUno::GameManager::Jump()
+{
+	currentPlayerId = currentPlayerId + increment;//end turn alredy increments player. so incrementing here guarantees that the player will be jumped
+}
+
 shared_ptr<Player> MyUno::GameManager::GetCurrentPlayer()
 {
 	return players[currentPlayerId % players.size()];

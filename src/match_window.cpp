@@ -9,6 +9,7 @@
 #include "card_view.h"
 #include "numeric_card_view.h"
 #include "reverse_card_view.h"
+#include "jump_card_view.h"
 using namespace std;
 using namespace MyUno;
 shared_ptr<CardView> MyUno::MatchWindow::GetCardView(MyUno::Type type)
@@ -28,6 +29,8 @@ MyUno::MatchWindow::MatchWindow(WindowSystem& manager)
     cardViewProcessors.push_back(numericCardProcessor);
     auto reverseCardProcessor = std::make_shared<ReverseCardView>();
     cardViewProcessors.push_back(reverseCardProcessor);
+    auto jumpCardProcessor = std::make_shared<JumpCardView>();
+    cardViewProcessors.push_back(jumpCardProcessor);
 }
 
 void MyUno::MatchWindow::Draw()
