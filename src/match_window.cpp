@@ -41,13 +41,7 @@ void MyUno::MatchWindow::Draw()
     shared_ptr<Player> currentPlayer = windowSystem.gameManager.GetCurrentPlayer();
     shared_ptr<Player> previousPlayer = windowSystem.gameManager.GetPreviousPlayer();
     shared_ptr<Player> nextPlayer = windowSystem.gameManager.GetNextPlayer();
-    /*auto players = windowSystem.gameManager.GetPlayers();
-    int i = currentPlayerId;*/
-
-
-    //shared_ptr<Player> previousPlayer = i > 0 ? players[i - 1] : players[players.size() - 1];
-    //shared_ptr<Player> currentPlayer = players[i];
-    //shared_ptr<Player> nextPlayer = i < players.size() - 1 ? players[i + 1] : players[0];
+ 
     //clears the screen
     system("cls");
     //print it's cards
@@ -75,19 +69,45 @@ void MyUno::MatchWindow::Draw()
         cout << "Is empty.";
     }
     cout << endl;
-    if (currentPlayer->CanPlayAnyCard(topDiscardPile.get()))
+    //TODO: Avaliar se está rolando +2. Se estiver o player tem que jogar a +2 que tiver ou comprar o stack de +2
+    if (GameManager::GetInstance().IsResolvingPlus2())
     {
-        auto chosenCard = ChooseCard(cardsInHand, topDiscardPile);
-        windowSystem.gameManager.PlayCard(currentPlayer, chosenCard);
-    }
-    else
-    {
-        auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
-        cout << "You got ";
-        GetCardView(dealtCard->type)->Draw(dealtCard);
+        if (currentPlayer->HasPlus2())
+        {//TODO: Se ele tem +2 ele é obrigado a jogar uma das +2
+            auto chosenCard = AskForPlus2(cardsInHand);
+            //agora que eu tenho o card +2 escolhido joga ele
+            GameManager::GetInstance().PlayCard(currentPlayer, chosenCard);
+        }
+        else
+        {//TODO: Se ele n tem ele é obrigado a resolver a pilha de +2 comprando
+            auto boughtCards = GameManager::GetInstance().ResolvePlus2(currentPlayer);
+            cout << "You bought:";
+            for (auto card : boughtCards)
+            {
+                GetCardView(card->type)->Draw(card);
+            }
+            cout << endl;
+        }
         cout << endl << "Press any key to continue.";
         string trash;
         cin >> trash;
+    }
+    else //nao ta resolvendo +2, player pode jogar qqer carta.
+    {
+        if (currentPlayer->CanPlayAnyCard(topDiscardPile.get()))
+        {
+            auto chosenCard = ChooseCard(cardsInHand, topDiscardPile);
+            windowSystem.gameManager.PlayCard(currentPlayer, chosenCard);
+        }
+        else
+        {
+            auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
+            cout << "You got ";
+            GetCardView(dealtCard->type)->Draw(dealtCard);
+            cout << endl << "Press any key to continue.";
+            string trash;
+            cin >> trash;
+        }
     }
     windowSystem.gameManager.EndTurn();
 
@@ -137,6 +157,48 @@ int MatchWindow::AskForCard(const vector<shared_ptr<Card>>& cardsInHand)
         }
     }
     return cardToPlayIndex;
+}
+
+shared_ptr<Card> MyUno::MatchWindow::AskForPlus2(const vector<shared_ptr<Card>>& cardsInHand)
+{
+    vector<int> plus2Idx;
+    for (auto i = 0; i < cardsInHand.size(); i++)
+    {
+        auto currCard = cardsInHand[i];
+        if (currCard->type == Plus2)
+            plus2Idx.push_back(i);
+    }
+    bool playingAPlus2 = false;
+    shared_ptr<Card> chosenCard = nullptr;
+    while (!playingAPlus2) {
+        cout << "You have to play one of your +2 cards (";
+        for (auto i : plus2Idx)
+            cout << i+1 << ",";
+        cout << "):";
+        string str;
+        cin >> str;
+        try {
+            int idx = stoi(str) - 1;
+            bool isInsideIdx = false;
+            for (auto i : plus2Idx)
+            {
+                if (i == idx)
+                    isInsideIdx = true;
+            }
+            if (!isInsideIdx) {
+                cout << "Must be one of the +2 cards" << endl;
+            }
+            else {
+                playingAPlus2 = true;
+                chosenCard = cardsInHand[idx];
+            }
+        }
+        catch (std::logic_error&)
+        {
+            cout << "Invalid number" << endl;
+        }
+    }
+    return chosenCard;
 }
 
 

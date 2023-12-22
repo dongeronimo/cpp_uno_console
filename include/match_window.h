@@ -18,7 +18,7 @@ namespace MyUno
 		shared_ptr<CardView> GetCardView(MyUno::Type type);
 		shared_ptr<Card> ChooseCard(const vector<shared_ptr<Card>>& cardsInHand, const std::shared_ptr<Card>& topDiscardPile);
 		int AskForCard(const vector<shared_ptr<Card>>& cardsInHand);
-
+		shared_ptr<Card> AskForPlus2(const vector<shared_ptr<Card>>& cardsInHand);
 	public:
 		MatchWindow(WindowSystem& manager);
 		void Draw();

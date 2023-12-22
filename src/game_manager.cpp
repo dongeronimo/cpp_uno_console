@@ -10,7 +10,8 @@ GameManager::GameManager()
 	:isRunning(false),
 	windowManager(WindowSystem(*this)),
 	currentPlayerId(0),
-	increment(Positive)
+	increment(Positive),
+	plus2Stack(0)
 {
 }
 
@@ -97,6 +98,8 @@ void MyUno::GameManager::Jump()
 	currentPlayerId = currentPlayerId + increment;//end turn alredy increments player. so incrementing here guarantees that the player will be jumped
 }
 
+
+
 shared_ptr<Player> MyUno::GameManager::GetCurrentPlayer()
 {
 	return players[currentPlayerId % players.size()];
@@ -130,4 +133,16 @@ void MyUno::GameManager::EndTurn()
 {
 	currentPlayerId = currentPlayerId + increment;
 	
+}
+
+vector<shared_ptr<Card>> MyUno::GameManager::ResolvePlus2(shared_ptr<Player> target)
+{
+	vector<shared_ptr<Card>> dealtCards;
+	while (plus2Stack > 0) 
+	{
+		auto cardDealt = DealCardTo(target);
+		dealtCards.push_back(cardDealt);
+		plus2Stack--;
+	}
+	return dealtCards;
 }
