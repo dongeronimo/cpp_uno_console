@@ -1,5 +1,6 @@
 #include "player.h"
 #include "card.h"
+using namespace MyUno;
 MyUno::Player::Player(string name)
     :name(name)
 {
@@ -27,4 +28,18 @@ bool MyUno::Player::CanPlayAnyCard(const Card* topDiscardPile) const
     }
 
     return canPlay;
+}
+
+bool Player::HasPlus2() const
+{
+    auto cards = hand.GetCards();
+    for (auto cardsIt = cards.begin(); cardsIt != cards.end(); ++cardsIt)
+    {
+        auto currentCard = *cardsIt;
+        if (currentCard->type == Plus2) 
+        {
+            return true;
+        }
+    }
+    return false;
 }

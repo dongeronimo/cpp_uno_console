@@ -27,6 +27,7 @@ namespace MyUno
 		int currentPlayerId;
 		Increment increment;
 		GameManager();
+		int plus2Stack;
 	public:
 		static GameManager& GetInstance()
 		{
@@ -62,11 +63,13 @@ namespace MyUno
 		shared_ptr<Card> DealCardTo(shared_ptr<Player> player);
 		void RevertOrderOfMatch();
 		void Jump();
-
 		shared_ptr<Player> GetCurrentPlayer();
 		shared_ptr<Player> GetPreviousPlayer();
 		shared_ptr<Player> GetNextPlayer();
 		void EndTurn();
+		void IncreasePlus2Stack() { plus2Stack=plus2Stack+2; }
+		bool IsResolvingPlus2() { return plus2Stack > 0; }
+		vector<shared_ptr<Card>> ResolvePlus2(shared_ptr<Player> target);
 	};
 }
 

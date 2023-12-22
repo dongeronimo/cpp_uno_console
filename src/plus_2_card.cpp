@@ -1,4 +1,5 @@
 #include "plus_2_card.h"
+#include "game_manager.h"
 using namespace MyUno;
 
 Plus2Card::Plus2Card(Color color)
@@ -8,9 +9,15 @@ Plus2Card::Plus2Card(Color color)
 
 bool MyUno::Plus2Card::CanBePlayed(const Card* topDiscardPileCard) const
 {
-	return false;
+	//is there any card?
+	bool isEmpty = topDiscardPileCard == nullptr;
+	//Is a numeric card?
+	bool isPlus2 = !isEmpty && dynamic_cast<const Plus2Card*>(topDiscardPileCard) != nullptr;
+	bool isSameColor = !isEmpty && topDiscardPileCard->color == this->color;
+	return isPlus2 || isSameColor || isEmpty;
 }
 
 void MyUno::Plus2Card::ExecuteAction()
 {
+	GameManager::GetInstance().IncreasePlus2Stack();
 }
