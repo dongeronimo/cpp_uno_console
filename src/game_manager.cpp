@@ -146,3 +146,21 @@ vector<shared_ptr<Card>> MyUno::GameManager::ResolvePlus2(shared_ptr<Player> tar
 	}
 	return dealtCards;
 }
+
+vector<shared_ptr<Player>> MyUno::GameManager::GetPlayersThatCalledUno()
+{
+	vector<shared_ptr<Player>> result;
+	std::copy_if(
+		cbegin(players), 
+		cend(players),
+		std::back_inserter(result), 
+		[](const shared_ptr<Player>& p) {
+			return p->CalledUno();
+		});
+	return result;
+}
+
+void MyUno::GameManager::PlayerCalledUno(shared_ptr<Player> p)
+{
+	p->SetCalledUno(true);
+}

@@ -70,6 +70,9 @@ namespace MyUno
 		void IncreasePlus2Stack() { plus2Stack=plus2Stack+2; }
 		bool IsResolvingPlus2() { return plus2Stack > 0; }
 		vector<shared_ptr<Card>> ResolvePlus2(shared_ptr<Player> target);
+		vector<shared_ptr<Player>> GetPlayersThatCalledUno();
+		void PlayerCalledUno(shared_ptr<Player> p);
+
 	};
 }
 
