@@ -119,7 +119,7 @@ void MyUno::MatchWindow::Draw()
                 auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
                 cout << "You got ";
                 GetCardView(dealtCard->type)->Draw(dealtCard);
-                auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
+                dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
                 cout << "and ";
                 GetCardView(dealtCard->type)->Draw(dealtCard);
                 GameManager::GetInstance().PlayerFailedToWin(currentPlayer);
