@@ -60,14 +60,14 @@ void MyUno::MatchWindow::Draw()
     int cardIdx = 1;
     for (auto cardsIt = cardsInHand.begin(); cardsIt != cardsInHand.end(); ++cardsIt)
     {
-
-        if (cardIdx < 10)
+        auto card = *cardsIt;
+        if (cardIdx < 10 && card->type != Plus2)
         {
-            cout << " " << cardIdx << "  ";
+            cout << "|" << cardIdx << "| ";
         }
         else
         {
-            cout << " " << cardIdx << " ";
+            cout << "|" << cardIdx << " | ";
         }
         cardIdx++;
     }
@@ -111,8 +111,7 @@ void MyUno::MatchWindow::Draw()
             cout << endl;
         }
         cout << endl << "Press any key to continue.";
-        string trash;
-        cin >> trash;
+        cin.ignore(256, '\n');
     }
     else 
     {
@@ -147,8 +146,7 @@ void MyUno::MatchWindow::Draw()
                 GetCardView(dealtCard->type)->Draw(dealtCard);
             }
             cout << endl << "Press any key to continue.";
-            string trash;
-            cin >> trash;
+            cin.ignore(256, '\n');
         }
     }
     windowSystem.gameManager.EndTurn();
