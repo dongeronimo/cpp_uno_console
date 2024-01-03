@@ -176,6 +176,11 @@ void MyUno::GameManager::PlayerCalledUno(shared_ptr<Player> p)
 	p->SetCalledUno(true);
 }
 
+void MyUno::GameManager::PlayerFailedToWin(shared_ptr<Player> p)
+{
+	p->SetCalledUno(false);
+}
+
 shared_ptr<Player> MyUno::GameManager::GetVictor()
 {
 	for (auto p : players)

@@ -59,6 +59,7 @@ namespace MyUno
 		vector<shared_ptr<Card>> ResolvePlus2(shared_ptr<Player> target);
 		vector<shared_ptr<Player>> GetPlayersThatCalledUno();
 		void PlayerCalledUno(shared_ptr<Player> p);
+		void PlayerFailedToWin(shared_ptr<Player> p);
 		shared_ptr<Player> GetVictor();
 	};
 }

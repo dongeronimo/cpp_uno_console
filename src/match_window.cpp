@@ -115,9 +115,17 @@ void MyUno::MatchWindow::Draw()
         }
         else
         {
-            auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
-            cout << "You got ";
-            GetCardView(dealtCard->type)->Draw(dealtCard);
+            if (currentPlayer->CalledUno()) {
+                auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
+                cout << "You got ";
+                GetCardView(dealtCard->type)->Draw(dealtCard);
+                GameManager::GetInstance().PlayerFailedToWin(currentPlayer);
+            }
+            else {
+                auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
+                cout << "You got ";
+                GetCardView(dealtCard->type)->Draw(dealtCard);
+            }
             cout << endl << "Press any key to continue.";
             string trash;
             cin >> trash;
