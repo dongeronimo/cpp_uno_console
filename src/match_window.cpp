@@ -55,12 +55,27 @@ void MyUno::MatchWindow::Draw()
     {
         cout << calledUno->name << " called uno!" << endl;
     }
-    cout << "Your hand: ";
+    cout << "Your hand: "<<endl;
+    int cardIdx = 1;
+    for (auto cardsIt = cardsInHand.begin(); cardsIt != cardsInHand.end(); ++cardsIt)
+    {
+        if (cardIdx < 10)
+        {
+            cout << " " << cardIdx << "  ";
+        }
+        else
+        {
+            cout << " " << cardIdx << " ";
+        }
+        cardIdx++;
+    }
+    cout << endl;
     for (auto cardsIt = cardsInHand.begin(); cardsIt != cardsInHand.end(); ++cardsIt)
     {
         shared_ptr<Card> currentCard = *cardsIt;
         shared_ptr<CardView> cardView = GetCardView(currentCard->type);
         cardView->Draw(currentCard);
+        cout << " ";
     }
     cout << endl;
     //prints the top card on the discard pile
