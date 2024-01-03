@@ -7,7 +7,7 @@
 using namespace std;
 
 MyUno::CreatePlayerWindow::CreatePlayerWindow(WindowSystem& manager)
-    : Window(manager)
+    : Window(manager, PlayerSetup)
 {
 }
 

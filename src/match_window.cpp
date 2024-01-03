@@ -25,7 +25,7 @@ shared_ptr<CardView> MyUno::MatchWindow::GetCardView(MyUno::Type type)
 }
 
 MyUno::MatchWindow::MatchWindow(WindowSystem& manager)
-    : Window(manager)
+    : Window(manager, MainMatch)
 {
     auto numericCardProcessor = std::make_shared<NumericCardView>();
     cardViewProcessors.push_back(numericCardProcessor);
@@ -111,6 +111,7 @@ void MyUno::MatchWindow::Draw()
         {
             auto chosenCard = ChooseCard(cardsInHand, topDiscardPile);
             windowSystem.gameManager.PlayCard(currentPlayer, chosenCard);
+
         }
         else
         {

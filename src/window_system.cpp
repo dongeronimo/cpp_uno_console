@@ -3,6 +3,7 @@
 #include "window_hello_world.h"
 #include "create_players_window.h"
 #include "match_window.h"
+#include "victory_window.h"
 using namespace MyUno;
 
 WindowSystem::WindowSystem(GameManager& gameManager)
@@ -32,6 +33,11 @@ shared_ptr<Window> WindowSystem::SwitchWindow(Windows window)
 		case MyUno::HelloWorld:
 		{
 			currentWindow = std::make_shared<WindowHelloWorld>(*this);
+			break;
+		}
+		case MyUno::Victory:
+		{
+			currentWindow = std::make_shared<VictoryWindow>(*this);
 			break;
 		}
 	}

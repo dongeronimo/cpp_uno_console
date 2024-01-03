@@ -25,7 +25,13 @@ void GameManager::GameLoop()
 	isRunning = true;
 	windowManager.SwitchWindow(PlayerSetup);
 	while (isRunning) {
-		windowManager.GetCurrentWindow()->Draw();
+		auto currentWindow = windowManager.GetCurrentWindow();
+		currentWindow->Draw();
+		auto victor = GetVictor();
+		if (victor != nullptr && currentWindow->Id != Victory)
+		{
+			windowManager.SwitchWindow(Victory);
+		}
 	}
 }
 void MyUno::GameManager::BuildPlayerHand(shared_ptr<Player> player)
@@ -66,6 +72,11 @@ void MyUno::GameManager::PlayCard(shared_ptr<Player> player, shared_ptr<Card> ch
 	player->RemoveCardFromHand(chosenCard);
 	discardPile->Add(chosenCard);
 	chosenCard->ExecuteAction();
+	auto currentPlayerHand = player->GetCards();
+	if (currentPlayerHand.size() == 0)
+	{
+		player->SetVictor();
+	}
 }
 
 shared_ptr<Card> MyUno::GameManager::DealCardTo(shared_ptr<Player> player)
@@ -163,4 +174,14 @@ vector<shared_ptr<Player>> MyUno::GameManager::GetPlayersThatCalledUno()
 void MyUno::GameManager::PlayerCalledUno(shared_ptr<Player> p)
 {
 	p->SetCalledUno(true);
+}
+
+shared_ptr<Player> MyUno::GameManager::GetVictor()
+{
+	for (auto p : players)
+	{
+		if (p->IsVictor())
+			return p;
+	}
+	return nullptr;
 }

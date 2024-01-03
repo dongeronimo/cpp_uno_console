@@ -2,7 +2,7 @@
 #include "card.h"
 using namespace MyUno;
 MyUno::Player::Player(string name)
-    :name(name), calledUno(false)
+    :name(name), calledUno(false), wonGame(false)
 {
 }
 

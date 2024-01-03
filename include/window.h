@@ -9,7 +9,8 @@ namespace MyUno
 	protected:
 		WindowSystem& windowSystem;
 	public:
-		Window(WindowSystem& manager);
+		const int Id;
+		Window(WindowSystem& manager, int id);
 		virtual void Draw() = 0;
 		virtual ~Window() {}
 	};
