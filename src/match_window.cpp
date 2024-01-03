@@ -99,16 +99,16 @@ void MyUno::MatchWindow::Draw()
     }
     else 
     {
-        if (currentPlayer->CanCallUno()) 
-        {
-            bool wantsToCallUno = AskIfItWantToCallUno();
-            if (wantsToCallUno)
-            {
-                GameManager::GetInstance().PlayerCalledUno(currentPlayer);
-            }
-        }
         if (currentPlayer->CanPlayAnyCard(topDiscardPile.get()))
         {
+            if (currentPlayer->CanCallUno())
+            {
+                bool wantsToCallUno = AskIfItWantToCallUno();
+                if (wantsToCallUno)
+                {
+                    GameManager::GetInstance().PlayerCalledUno(currentPlayer);
+                }
+            }
             auto chosenCard = ChooseCard(cardsInHand, topDiscardPile);
             windowSystem.gameManager.PlayCard(currentPlayer, chosenCard);
 
