@@ -47,5 +47,5 @@ bool Player::HasPlus2() const
 bool MyUno::Player::CanCallUno() const
 {
     auto cards = hand.GetCards();
-    return cards.size() <= 2;
+    return cards.size() <= 2 && this->calledUno == false;
 }
