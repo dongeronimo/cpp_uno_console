@@ -42,7 +42,8 @@ void MyUno::MatchWindow::Draw()
     shared_ptr<Player> currentPlayer = windowSystem.gameManager.GetCurrentPlayer();
     shared_ptr<Player> previousPlayer = windowSystem.gameManager.GetPreviousPlayer();
     shared_ptr<Player> nextPlayer = windowSystem.gameManager.GetNextPlayer();
- 
+    //prints the top card on the discard pile
+    std::shared_ptr<Card> topDiscardPile = windowSystem.gameManager.GetDiscardPile()->Top();
     //clears the screen
     system("cls");
     //print it's cards
@@ -59,6 +60,7 @@ void MyUno::MatchWindow::Draw()
     int cardIdx = 1;
     for (auto cardsIt = cardsInHand.begin(); cardsIt != cardsInHand.end(); ++cardsIt)
     {
+
         if (cardIdx < 10)
         {
             cout << " " << cardIdx << "  ";
@@ -78,8 +80,8 @@ void MyUno::MatchWindow::Draw()
         cout << " ";
     }
     cout << endl;
-    //prints the top card on the discard pile
-    std::shared_ptr<Card> topDiscardPile = windowSystem.gameManager.GetDiscardPile()->Top();
+
+    cout << endl;
     cout << "Discard Pile top: ";
     if (topDiscardPile != nullptr)
     {
