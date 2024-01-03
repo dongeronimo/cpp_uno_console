@@ -115,7 +115,7 @@ void MyUno::MatchWindow::Draw()
         }
         else
         {
-            if (currentPlayer->CalledUno()) {
+            if (currentPlayer->CalledUno() || cardsInHand.size() == 1) {
                 auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
                 cout << "You got ";
                 GetCardView(dealtCard->type)->Draw(dealtCard);
@@ -226,11 +226,10 @@ shared_ptr<Card> MyUno::MatchWindow::AskForPlus2(const vector<shared_ptr<Card>>&
 bool MyUno::MatchWindow::AskIfItWantToCallUno()
 {
     bool choseOption = false;
-    string input;
+    string input="";
     while (!choseOption)
     {
         cout << "Do you want to call uno (y/n) ?";
-        string input;
         cin >> input;
         std::transform(input.begin(), input.end(), input.begin(), ::toupper);
         if (input == "Y" || input == "N") {
