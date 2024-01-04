@@ -36,21 +36,8 @@ namespace MyUno
 		}
 		GameManager(GameManager const&) = delete;
 		void operator=(GameManager const&) = delete;
-		/// <summary>
-		/// End the main game loop by setting IsRunning to false. The next time the game loop
-		/// is evaluated it'll evaluate to false
-		/// </summary>
 		void Quit();
-		/// <summary>
-		/// The main loop is here. Execution will enter here and only leaves when
-		/// GameManager.Quit is invoked
-		/// </summary>
 		void GameLoop();
-		/// <summary>
-		/// Shuffles the initial deck, create the players, give them their cards from
-		/// the deck and go to the match window.
-		/// </summary>
-		/// <param name="playerNames"></param>
 		void BeginMatch(const vector<string>& playerNames);
 
 		vector<shared_ptr<Player>> GetPlayers() 
@@ -70,6 +57,10 @@ namespace MyUno
 		void IncreasePlus2Stack() { plus2Stack=plus2Stack+2; }
 		bool IsResolvingPlus2() { return plus2Stack > 0; }
 		vector<shared_ptr<Card>> ResolvePlus2(shared_ptr<Player> target);
+		vector<shared_ptr<Player>> GetPlayersThatCalledUno();
+		void PlayerCalledUno(shared_ptr<Player> p);
+		void PlayerFailedToWin(shared_ptr<Player> p);
+		shared_ptr<Player> GetVictor();
 	};
 }
 

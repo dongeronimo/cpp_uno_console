@@ -11,7 +11,8 @@ namespace MyUno
 	{
 		PlayerSetup,
 		MainMatch,
-		HelloWorld
+		Victory,
+		HelloWorld,
 	};
 	class WindowSystem
 	{

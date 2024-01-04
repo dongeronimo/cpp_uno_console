@@ -5,7 +5,8 @@
 #include "game_manager.h"
 using namespace MyUno;
 using namespace std;
-WindowHelloWorld::WindowHelloWorld(WindowSystem& manager) : Window(manager)
+WindowHelloWorld::WindowHelloWorld(WindowSystem& manager) 
+	: Window(manager, HelloWorld)
 {
 	std::cout << "Criou a WindowHelloWorld" << std::endl;
 }

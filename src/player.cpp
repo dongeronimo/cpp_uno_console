@@ -2,7 +2,7 @@
 #include "card.h"
 using namespace MyUno;
 MyUno::Player::Player(string name)
-    :name(name)
+    :name(name), calledUno(false), wonGame(false)
 {
 }
 
@@ -42,4 +42,10 @@ bool Player::HasPlus2() const
         }
     }
     return false;
+}
+
+bool MyUno::Player::CanCallUno() const
+{
+    auto cards = hand.GetCards();
+    return cards.size() <= 2 && this->calledUno == false;
 }

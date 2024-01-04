@@ -11,6 +11,7 @@
 #include "reverse_card_view.h"
 #include "jump_card_view.h"
 #include "plus2_card_view.h"
+#include <algorithm>
 using namespace std;
 using namespace MyUno;
 shared_ptr<CardView> MyUno::MatchWindow::GetCardView(MyUno::Type type)
@@ -24,7 +25,7 @@ shared_ptr<CardView> MyUno::MatchWindow::GetCardView(MyUno::Type type)
 }
 
 MyUno::MatchWindow::MatchWindow(WindowSystem& manager)
-    : Window(manager)
+    : Window(manager, MainMatch)
 {
     auto numericCardProcessor = std::make_shared<NumericCardView>();
     cardViewProcessors.push_back(numericCardProcessor);
@@ -41,7 +42,8 @@ void MyUno::MatchWindow::Draw()
     shared_ptr<Player> currentPlayer = windowSystem.gameManager.GetCurrentPlayer();
     shared_ptr<Player> previousPlayer = windowSystem.gameManager.GetPreviousPlayer();
     shared_ptr<Player> nextPlayer = windowSystem.gameManager.GetNextPlayer();
- 
+    //prints the top card on the discard pile
+    std::shared_ptr<Card> topDiscardPile = windowSystem.gameManager.GetDiscardPile()->Top();
     //clears the screen
     system("cls");
     //print it's cards
@@ -49,16 +51,37 @@ void MyUno::MatchWindow::Draw()
     cout << "previous player: " << previousPlayer->name << endl;
     cout << "current player (you): " << currentPlayer->name << endl;
     cout << "next player: " << nextPlayer->name << endl;
-    cout << "Your hand: ";
+    auto playersThatCalledUno = GameManager::GetInstance().GetPlayersThatCalledUno();
+    for (auto calledUno : playersThatCalledUno)
+    {
+        cout << calledUno->name << " called uno!" << endl;
+    }
+    cout << "Your hand: "<<endl;
+    int cardIdx = 1;
+    for (auto cardsIt = cardsInHand.begin(); cardsIt != cardsInHand.end(); ++cardsIt)
+    {
+        auto card = *cardsIt;
+        if (cardIdx < 10 && card->type != Plus2)
+        {
+            cout << "|" << cardIdx << "| ";
+        }
+        else
+        {
+            cout << "|" << cardIdx << " | ";
+        }
+        cardIdx++;
+    }
+    cout << endl;
     for (auto cardsIt = cardsInHand.begin(); cardsIt != cardsInHand.end(); ++cardsIt)
     {
         shared_ptr<Card> currentCard = *cardsIt;
         shared_ptr<CardView> cardView = GetCardView(currentCard->type);
         cardView->Draw(currentCard);
+        cout << " ";
     }
     cout << endl;
-    //prints the top card on the discard pile
-    std::shared_ptr<Card> topDiscardPile = windowSystem.gameManager.GetDiscardPile()->Top();
+
+    cout << endl;
     cout << "Discard Pile top: ";
     if (topDiscardPile != nullptr)
     {
@@ -69,17 +92,16 @@ void MyUno::MatchWindow::Draw()
         cout << "Is empty.";
     }
     cout << endl;
-    //TODO: Avaliar se está rolando +2. Se estiver o player tem que jogar a +2 que tiver ou comprar o stack de +2
+    
     if (GameManager::GetInstance().IsResolvingPlus2())
     {
         if (currentPlayer->HasPlus2())
-        {//TODO: Se ele tem +2 ele é obrigado a jogar uma das +2
+        {
             auto chosenCard = AskForPlus2(cardsInHand);
-            //agora que eu tenho o card +2 escolhido joga ele
             GameManager::GetInstance().PlayCard(currentPlayer, chosenCard);
         }
         else
-        {//TODO: Se ele n tem ele é obrigado a resolver a pilha de +2 comprando
+        {
             auto boughtCards = GameManager::GetInstance().ResolvePlus2(currentPlayer);
             cout << "You bought:";
             for (auto card : boughtCards)
@@ -89,24 +111,42 @@ void MyUno::MatchWindow::Draw()
             cout << endl;
         }
         cout << endl << "Press any key to continue.";
-        string trash;
-        cin >> trash;
+        cin.ignore(256, '\n');
     }
-    else //nao ta resolvendo +2, player pode jogar qqer carta.
+    else 
     {
         if (currentPlayer->CanPlayAnyCard(topDiscardPile.get()))
         {
+            if (currentPlayer->CanCallUno())
+            {
+                bool wantsToCallUno = AskIfItWantToCallUno();
+                if (wantsToCallUno)
+                {
+                    GameManager::GetInstance().PlayerCalledUno(currentPlayer);
+                }
+            }
             auto chosenCard = ChooseCard(cardsInHand, topDiscardPile);
             windowSystem.gameManager.PlayCard(currentPlayer, chosenCard);
+
         }
         else
         {
-            auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
-            cout << "You got ";
-            GetCardView(dealtCard->type)->Draw(dealtCard);
+            if (currentPlayer->CalledUno() || cardsInHand.size() == 1) {
+                auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
+                cout << "You got ";
+                GetCardView(dealtCard->type)->Draw(dealtCard);
+                dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
+                cout << "and ";
+                GetCardView(dealtCard->type)->Draw(dealtCard);
+                GameManager::GetInstance().PlayerFailedToWin(currentPlayer);
+            }
+            else {
+                auto dealtCard = windowSystem.gameManager.DealCardTo(currentPlayer);
+                cout << "You got ";
+                GetCardView(dealtCard->type)->Draw(dealtCard);
+            }
             cout << endl << "Press any key to continue.";
-            string trash;
-            cin >> trash;
+            cin.ignore(256, '\n');
         }
     }
     windowSystem.gameManager.EndTurn();
@@ -199,6 +239,28 @@ shared_ptr<Card> MyUno::MatchWindow::AskForPlus2(const vector<shared_ptr<Card>>&
         }
     }
     return chosenCard;
+}
+
+bool MyUno::MatchWindow::AskIfItWantToCallUno()
+{
+    bool choseOption = false;
+    string input="";
+    while (!choseOption)
+    {
+        cout << "Do you want to call uno (y/n) ?";
+        cin >> input;
+        std::transform(input.begin(), input.end(), input.begin(), ::toupper);
+        if (input == "Y" || input == "N") {
+            choseOption = true;
+        }
+        else {
+            cout << "Not a valid option" << endl;
+        }
+    }
+    if (input == "Y")
+        return true;
+    else
+        return false;
 }
 
 

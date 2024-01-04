@@ -25,7 +25,13 @@ void GameManager::GameLoop()
 	isRunning = true;
 	windowManager.SwitchWindow(PlayerSetup);
 	while (isRunning) {
-		windowManager.GetCurrentWindow()->Draw();
+		auto currentWindow = windowManager.GetCurrentWindow();
+		currentWindow->Draw();
+		auto victor = GetVictor();
+		if (victor != nullptr && currentWindow->Id != Victory)
+		{
+			windowManager.SwitchWindow(Victory);
+		}
 	}
 }
 void MyUno::GameManager::BuildPlayerHand(shared_ptr<Player> player)
@@ -66,6 +72,11 @@ void MyUno::GameManager::PlayCard(shared_ptr<Player> player, shared_ptr<Card> ch
 	player->RemoveCardFromHand(chosenCard);
 	discardPile->Add(chosenCard);
 	chosenCard->ExecuteAction();
+	auto currentPlayerHand = player->GetCards();
+	if (currentPlayerHand.size() == 0)
+	{
+		player->SetWinner();
+	}
 }
 
 shared_ptr<Card> MyUno::GameManager::DealCardTo(shared_ptr<Player> player)
@@ -145,4 +156,37 @@ vector<shared_ptr<Card>> MyUno::GameManager::ResolvePlus2(shared_ptr<Player> tar
 		plus2Stack--;
 	}
 	return dealtCards;
+}
+
+vector<shared_ptr<Player>> MyUno::GameManager::GetPlayersThatCalledUno()
+{
+	vector<shared_ptr<Player>> result;
+	std::copy_if(
+		cbegin(players), 
+		cend(players),
+		std::back_inserter(result), 
+		[](const shared_ptr<Player>& p) {
+			return p->CalledUno();
+		});
+	return result;
+}
+
+void MyUno::GameManager::PlayerCalledUno(shared_ptr<Player> p)
+{
+	p->SetCalledUno(true);
+}
+
+void MyUno::GameManager::PlayerFailedToWin(shared_ptr<Player> p)
+{
+	p->SetCalledUno(false);
+}
+
+shared_ptr<Player> MyUno::GameManager::GetVictor()
+{
+	for (auto p : players)
+	{
+		if (p->IsWinner())
+			return p;
+	}
+	return nullptr;
 }

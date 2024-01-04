@@ -10,6 +10,8 @@ namespace MyUno
     class Player
     {
     private:
+        bool wonGame;
+        bool calledUno;
         CardContainer hand;
     public:
         Player(string name);
@@ -27,6 +29,11 @@ namespace MyUno
         }
         bool CanPlayAnyCard(const Card* topDiscardPile) const;
         bool HasPlus2()const;
+        bool CanCallUno()const;
+        void SetCalledUno(bool v) { calledUno = v; }
+        bool CalledUno() const { return calledUno; }
+        void SetWinner() { wonGame = true; }
+        bool IsWinner() const { return wonGame; }
     };
 }
 #endif
