@@ -31,9 +31,9 @@ namespace MyUno
         bool HasPlus2()const;
         bool CanCallUno()const;
         void SetCalledUno(bool v) { calledUno = v; }
-        bool CalledUno() { return calledUno; }
-        void SetVictor() { wonGame = true; }
-        bool IsVictor() { return wonGame; }
+        bool CalledUno() const { return calledUno; }
+        void SetWinner() { wonGame = true; }
+        bool IsWinner() const { return wonGame; }
     };
 }
 #endif

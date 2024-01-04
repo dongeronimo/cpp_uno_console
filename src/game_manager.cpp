@@ -75,7 +75,7 @@ void MyUno::GameManager::PlayCard(shared_ptr<Player> player, shared_ptr<Card> ch
 	auto currentPlayerHand = player->GetCards();
 	if (currentPlayerHand.size() == 0)
 	{
-		player->SetVictor();
+		player->SetWinner();
 	}
 }
 
@@ -185,7 +185,7 @@ shared_ptr<Player> MyUno::GameManager::GetVictor()
 {
 	for (auto p : players)
 	{
-		if (p->IsVictor())
+		if (p->IsWinner())
 			return p;
 	}
 	return nullptr;
